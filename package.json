@@ -3,11 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "next dev -p 4455",
+    "build": "rm -rf ./out && next build && next export && echo iport.hejny.org > ./out/CNAME && echo > ./out/.nojekyll",
     "start": "next start",
-    "lint": "next lint"
-  },
+    "lint": "next lint",
+    "test": "echo \"No tests yet\"",
+    "prettier": "prettier --config .prettierrc --ignore-unknown --write \"{pages,public,styles}/**/*\"",
+    "prettier-commit": "git diff --exit-code && npm run prettier && git add . && git commit --allow-empty -m \"🧹 Prettier\"",
+    "preversion": "git pull && npm run prettier-commit&& npm run lint && npm test",
+    "postversion": "git push && git push --tags && echo \"Check the deploy process: https://github.com/hejny/iport/actions/\""
+},
   "dependencies": {
     "@next/font": "13.1.4",
     "@types/node": "18.11.18",
