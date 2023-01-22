@@ -1,9 +1,8 @@
 .App {
-    /**/
+    /*/
     outline: 1px dotted red;
-    background-color: red;
-
     /**/
+
     display: fixed;
     top: 0;
     left: 0;

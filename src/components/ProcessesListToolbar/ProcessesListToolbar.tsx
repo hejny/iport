@@ -6,5 +6,5 @@ interface ProcessesListToolbarProps {
 
 export function ProcessesListToolbar(props: ProcessesListToolbarProps) {
     const { foo } = props;
-    return <div className={styles.ProcessesListToolbar}>{foo}</div>;
+    return <div className={styles.ProcessesListToolbar}>ProcessesListToolbar{foo}</div>;
 }

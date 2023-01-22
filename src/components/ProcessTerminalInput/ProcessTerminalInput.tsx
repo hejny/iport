@@ -6,5 +6,5 @@ interface ProcessTerminalInputProps {
 
 export function ProcessTerminalInput(props: ProcessTerminalInputProps) {
     const { foo } = props;
-    return <div className={styles.ProcessTerminalInput}>{foo}</div>;
+    return <div className={styles.ProcessTerminalInput}>ProcessTerminalInput{foo}</div>;
 }

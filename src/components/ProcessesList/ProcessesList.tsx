@@ -8,6 +8,7 @@ export function ProcessesList(props: ProcessesListProps) {
     const { foo } = props;
     return (
         <div className={styles.ProcessesList}>
+            ProcessesList
             <a href="#a" target="a">
                 Open A
             </a>
@@ -22,5 +23,6 @@ export function ProcessesList(props: ProcessesListProps) {
 }
 
 /**
+ * TODO: Use <ul/> + li
  * TODO: ACRY replace foo prop
  */

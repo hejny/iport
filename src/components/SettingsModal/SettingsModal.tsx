@@ -6,7 +6,7 @@ interface SettingsModalInputProps {
 
 export function SettingsModalInput(props: SettingsModalInputProps) {
     const { foo } = props;
-    return <div className={styles.SettingsModalInput}>{foo}</div>;
+    return <div className={styles.SettingsModalInput}>SettingsModalInput{foo}</div>;
 }
 
 

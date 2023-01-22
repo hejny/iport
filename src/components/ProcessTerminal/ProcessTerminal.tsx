@@ -9,6 +9,7 @@ export function ProcessTerminal(props: ProcessTerminalProps) {
     const { foo } = props;
     return (
         <div className={styles.ProcessTerminal}>
+            ProcessTerminal
             {foo}
             <ProcessTerminalInput />
         </div>

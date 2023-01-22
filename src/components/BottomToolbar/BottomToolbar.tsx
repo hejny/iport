@@ -9,9 +9,9 @@ export function BottomToolbar(props: BottomToolbarProps) {
     const { foo } = props;
     return (
         <div className={styles.BottomToolbar}>
+            BottomToolbar
             <BottomToolbarButton />
             <BottomToolbarButton />
         </div>
     );
 }
-

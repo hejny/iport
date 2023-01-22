@@ -6,5 +6,5 @@ interface StartModalInputProps {
 
 export function StartModalInput(props: StartModalInputProps) {
     const { foo } = props;
-    return <div className={styles.StartModalInput}>{foo}</div>;
+    return <div className={styles.StartModalInput}>StartModalInput{foo}</div>;
 }
