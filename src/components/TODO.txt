@@ -1,0 +1,2 @@
+TODO: Should be component structure flat (like it is) OR place internal components in the folder of user component
+      For example ProcessTerminalInput inside ProcessTerminal
