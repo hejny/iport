@@ -15,6 +15,3 @@ export function BottomToolbar(props: BottomToolbarProps) {
     );
 }
 
-/**
- * TODO: HTML Semantics: Use <footer/>
- */

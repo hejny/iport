@@ -1,21 +1,13 @@
-.main {
+.App {
+    /**/
+    outline: 1px dotted red;
+    background-color: red;
 
-  /*
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
-  */
-
-  
-  /**
-  * TODO: Change this boilerplate code
-  */
+    /**/
+    display: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    bottom: 0;
+    height: 100vh;
 }
-
-
-  /**
-  * TODO: Probbably delete this file and have only minimalistic global.css + component CSSs
-  */

@@ -14,7 +14,3 @@ export function ProcessTerminal(props: ProcessTerminalProps) {
         </div>
     );
 }
-
-/**
- * TODO: HTML Semantics: Maybe <main/> should be the <ProcessTerminal/> not the entire app
- */

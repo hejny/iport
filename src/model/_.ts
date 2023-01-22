@@ -1,10 +1,9 @@
 // TODO: !!! Break into components
 
+// !!! Better name
 interface ProcessesList {
-    // !!! Better name
-
-    newProcessOptions;
-    processList;
+    // newProcessOptions;
+    // processList;
 }
 interface Process {}
 
