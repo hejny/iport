@@ -9,15 +9,24 @@ export function ProcessesList(props: ProcessesListProps) {
     return (
         <div className={styles.ProcessesList}>
             ProcessesList
-            <a href="#a" target="a">
-                Open A
-            </a>
-            <a href="#b" target="b">
-                Open B
-            </a>
-            <a href="#c" target="c">
-                Open C
-            </a>
+            <ul>
+                {/* TODO: This will be in data model */}
+                <li>
+                    <a href="#a" target="a">
+                        Open A
+                    </a>
+                </li>
+                <li>
+                    <a href="#b" target="b">
+                        Open B
+                    </a>
+                </li>
+                <li>
+                    <a href="#c" target="c">
+                        Open C
+                    </a>
+                </li>
+            </ul>
         </div>
     );
 }
