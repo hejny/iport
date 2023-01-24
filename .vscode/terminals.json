@@ -13,12 +13,6 @@
             "focus": true
         },
         {
-            "name": "🧪 Test",
-            "command": "npm run test",
-            "onlySingle": true,
-            "focus": true
-        },
-        {
             "name": "🧪 Lint",
             "command": "npm run lint",
             "onlySingle": true,
@@ -28,6 +22,24 @@
             "name": "🩹 Lint fix",
             "command": "npm run lint -- --fix",
             "onlySingle": true
+        },
+        {
+            "name": "🧪 Unit tests",
+            "command": "npm run test-unit",
+            "onlySingle": true,
+            "focus": true
+        },
+        {
+            "name": "🧪 Integration tests",
+            "command": "npm run test-integration",
+            "onlySingle": true,
+            "focus": true
+        },
+        {
+            "name": "🧪🔥 Integration tests (interactive)",
+            "command": "npm run test-integration-interactive",
+            "onlySingle": true,
+            "focus": true
         },
         {
             "name": "🔼👑 Release major version",
