@@ -5,5 +5,25 @@
 
     width: 100%;
     height: 100%;
+}
+
+.ProcessesList h1 {
+    /*/
+    outline: 1px dotted red;
+    /**/
+
+    height: 50px;
+    
+}
+
+.ProcessesList ul {
+    /*/
+    outline: 1px dotted red;
+    /**/
+
+    width: 100%;
+    height: 80%;
+
     background-color: white;
+    border: 1px solid black;
 }
