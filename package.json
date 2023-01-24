@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "next dev -p 5000",
-        "build": "rm -rf ./out && next build && next export && echo iport.hejny.org > ./out/CNAME && echo > ./out/.nojekyll",
+        "build": "rm -rf ./out && next build && next export && echo iport.prototyping.hejny.org > ./out/CNAME && echo > ./out/.nojekyll",
         "start": "next start",
         "lint": "next lint",
         "test": "npm run test-unit && npm run test-integration",
