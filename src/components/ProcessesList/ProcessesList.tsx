@@ -8,7 +8,7 @@ export function ProcessesList(props: ProcessesListProps) {
     const { foo } = props;
     return (
         <div className={styles.ProcessesList}>
-            ProcessesList
+            Seznam procesů
             <ul>
                 {/* TODO: This will be in data model */}
                 <li>
