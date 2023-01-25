@@ -7,5 +7,7 @@ module.exports = {
         'aiGeneratedWallpaperPick',
         'aiGeneratedWallpaperUseInReadme',
         'aiGeneratedWallpaperUseInGithub',
+        'contributing',
+        'license',
     ],
 };
