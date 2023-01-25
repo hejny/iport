@@ -1,11 +1,12 @@
 // TODO: !!! Break into components
 
 // !!! Better name
-interface ProcessesList {
+export interface ProcessesList {
     // newProcessOptions;
     // processList;
 }
-interface Process {}
+export interface Process {}
 
-class MockedProcessesList {}
-class MockedProcess {}
+export class MockedProcessesList {}
+export class MockedProcess {}
+
