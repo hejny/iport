@@ -1,8 +1,19 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  experimental: {
-    appDir: true, /* <- !!! Same in rapid prototyping */
-  },
-}
 
-module.exports = nextConfig
+nextConfig = {
+    experimental: {
+        appDir: true /* <- TODO: !!! Same in rapid prototyping */,
+    },
+    reactStrictMode: true,
+    images: {
+        unoptimized: true /* <- TODO: Optimize images, all images should be in some modern format like webp/svg */,
+    },
+
+    async exportPathMap() {
+        return {
+            '/': { page: '/' },
+        };
+    },
+};
+
+module.exports = nextConfig;
