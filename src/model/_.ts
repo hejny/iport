@@ -44,7 +44,7 @@ export class MockedProcess implements Process {
                     <li>
                         <span class="order">${order++}</span>
                         <span class="time">11:11</span>
-                        <span class="log">- Hello here is the sample LOG</span>
+                        <span class="log">- Hello here is the sample LOG of ${document.title}</span>
                     </li>
                     `),
             );
@@ -109,11 +109,13 @@ export class MockedProcess implements Process {
 
             const registration = Registration.create(async ({ isDestroyed }) => {
                 while (true) {
-                    await forTime(1000 * (7 * Math.random()) * 0.01 /* <- TODO: Tweak time */);
+                    await forTime(1000 * (7 * Math.random()) /* <- TODO: Tweak time */);
 
+                    /* 
                     if (order > 50) {
                         return;
                     }
+                    */
 
                     if (isDestroyed()) {
                         return;
