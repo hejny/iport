@@ -31,23 +31,31 @@ export class MockedProcess implements Process {
 
     public get logs() {
         return new Observable<ServerHtml>((observer) => {
+            console.log('Observable');
+
+            let order = 0;
+
+            // TODO: Replay initial logs
+
             const registration = Registration.create(async ({ isDestroyed }) => {
                 while (true) {
-                    await forTime(1000 * 10 * Math.random());
+                    await forTime(1000 * 10 * Math.random() * 0.1 /* <- TODO: Tweak time */);
 
                     if (isDestroyed()) {
                         return;
                     }
 
-                    // TODO: !!!! Use some faker
+                    console.log('next', order);
+
+                    // TODO: !!!! Use some faker / random
                     observer.next(
                         spaceTrim(`
                         
                             <li>
-                                <span class="order">3</span>
+                                <span class="order">${order++}</span>
                                 <span class="time">11:25</span>
                                 <span class="log">
-                                    - We <span style="font-weight:bold">italic</span> make logs<!-- --> <span style="font-style:italic">italic</span> too!
+                                    - ${Math.random()}
                                 </span>
                             </li>
                         
