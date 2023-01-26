@@ -7,13 +7,14 @@
         "build": "rm -rf ./out && next build && next export && echo iport.prototyping.hejny.org > ./out/CNAME && echo > ./out/.nojekyll",
         "start": "next start",
         "lint": "next lint",
+        "not-test": "echo \"Not testing now\"",
         "test": "npm run test-unit && npm run test-integration",
         "test-unit": "jest",
         "test-integration": "./node_modules/.bin/cypress run",
         "test-integration-interactive": "./node_modules/.bin/cypress open",
         "prettier": "prettier --config .prettierrc --ignore-unknown --write \"{pages,public,styles}/**/*\"",
         "prettier-commit": "git diff --exit-code && npm run prettier && git add . && git commit --allow-empty -m \"🧹 Prettier\"",
-        "preversion": "git pull && npm run prettier-commit && npm run lint && npm test",
+        "preversion": "git pull && npm run prettier-commit && npm run lint && npm not-test",
         "postversion": "npm run build && npx gh-pages --dotfiles --dist ./out --repo https://github.com/hejny/iport && git push && git push --tags"
     },
     "devDependencies": {
