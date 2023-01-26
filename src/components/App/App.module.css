@@ -9,12 +9,19 @@
     overflow: hidden /* <- Note: Without this is there and annoying mico-scrolling */;
 
     display: grid;
-    grid-template-columns: 300px auto;
     grid-template-rows: auto 30px;
     align-items: stretch;
     justify-content: stretch;
 
     background-color: #f0f0f0 /* <- [🎨] */;
+}
+
+.App.with-process-list {
+    grid-template-columns: 300px auto;
+}
+
+.App.without-process-list {
+    grid-template-columns: 0 auto;
 }
 
 .ProcessesList {

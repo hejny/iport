@@ -4,14 +4,13 @@ import { BottomToolbarButton } from '../BottomToolbarButton/BottomToolbarButton'
 import styles from './BottomToolbar.module.css';
 
 interface BottomToolbarProps {
-    foo?: string;
+    isProcessListVisible: boolean;
+    toggleProcessListVisible(): void;
 }
 
 export function BottomToolbar(props: BottomToolbarProps) {
-    const { foo } = props;
+    const { isProcessListVisible, toggleProcessListVisible } = props;
 
-    // TODO: Maybe to global state
-    const [isProcessListVisible, toggleProcessListVisible] = useToggle(true);
     const [isTerminalPinned, toggleTerminalPinned] = useToggle(false);
 
     return (
