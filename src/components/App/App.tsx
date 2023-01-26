@@ -19,7 +19,7 @@ function changeFavicon(url: string_url_image) {
     // TODO: Enhance
     let linkElement: HTMLLinkElement | null = document.querySelector("link[rel~='icon']");
 
-    console.log({ linkElement });
+    // console.log({ linkElement });
 
     if (!linkElement) {
         linkElement = document.createElement('link');

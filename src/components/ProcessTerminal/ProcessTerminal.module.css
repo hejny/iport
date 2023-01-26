@@ -26,34 +26,52 @@
     height: 100%;
 }
 
-.input {
-    grid-column: 1 / span 1;
-    grid-row: 2 / span 1;
-
-    width: 100%;
-    height: 100%;
-
-    background-color: rgb(224, 244, 248) /* <- [🎨] */;
-}
-
-.output ul {
-    /*/
+.output .inner {
+    /**/
     outline: 1px dotted red;
     /**/
 
-    font-family: monospace;
+    /*font-family: monospace;*/
 
     background-color: #ffffff /* <- [🎨] */;
     border: 1px solid #828790 /* <- [🎨] */;
 
     padding: 10px;
     margin: 10px;
-    height: calc(100% - 20px);
+
+    width: calc(100% - 40px);
+    height: calc(100vh - 200px);
 
     overflow-y: scroll;
 }
 
-.output ul li {
+/*
+.output .inner::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+
+.output .inner ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
+*/
+
+.output .inner ul {
+    /**/
+    outline: 1px dotted red;
+    /**/
+
+    display: block;
+    margin: 0;
+    padding: 0;
+
+    width: auto;
+    height: auto;
+}
+
+.output .inner ul li {
     /*/
     outline: 1px dotted red;
     /**/
@@ -63,7 +81,7 @@
     padding: 0;
 }
 
-.output ul li :global(.order) {
+.output .inner ul li :global(.order) {
     /*/
     outline: 1px dotted magenta;
     /**/
@@ -72,7 +90,7 @@
     width: 20px;
 }
 
-.output ul li :global(.time) {
+.output .inner ul li :global(.time) {
     /*/
     outline: 1px dotted magenta;
     /**/
@@ -81,8 +99,18 @@
     width: 2.7rem;
 }
 
-.output ul li :global(.log) {
+.output .inner ul li :global(.log) {
     /*/
     outline: 1px dotted magenta;
     /**/
+}
+
+.input {
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(224, 244, 248, 0.473) /* <- [🎨] */;
 }
