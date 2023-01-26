@@ -13,7 +13,6 @@
     /**/
 
     height: 50px;
-    
 }
 
 .ProcessesList ul {
@@ -25,5 +24,18 @@
     height: 80%;
 
     background-color: white;
-    border: 1px solid black;
+    border: 1px solid #666;
+
+    margin: 0;
+    padding: 10px;
+}
+
+.ProcessesList ul li {
+    /*/
+    outline: 1px dotted red;
+    /**/
+
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }

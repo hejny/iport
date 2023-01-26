@@ -13,19 +13,24 @@ export function ProcessesList(props: ProcessesListProps) {
                 {/* TODO: This will be in data model */}
                 <li>
                     <a href="#a" target="a">
-                        Open A
+                        <span className="time">11:10</span>
+                        <span className="name">Process A [HA]</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#b" target="b">
-                        Open B
+                    <a href="#b" target="b" style={{ color: '#dd0000', fontWeight: 'bold' }}>
+                        <span className="time">11:11</span>
+                        <span className="name">Process B [MBR]</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#c" target="c">
-                        Open C
+                    <a href="#c" target="c" style={{ color: '#00cc22', fontWeight: 'bold' }}>
+                        <span className="time">11:23</span>
+                        <span className="name">Process C [MCI]</span>
                     </a>
                 </li>
+
+                <li>vv--- 17.01 ---------------------------</li>
             </ul>
         </div>
     );
