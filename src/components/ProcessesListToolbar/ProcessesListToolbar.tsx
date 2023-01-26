@@ -1,7 +1,7 @@
 import styles from './ProcessesListToolbar.module.css';
 
 interface ProcessesListToolbarProps {
-    foo?: string;
+    foo?: string; /* <- TODO: ACRY remove all foo */
 }
 
 export function ProcessesListToolbar(props: ProcessesListToolbarProps) {

@@ -1,17 +1,29 @@
+import { Process } from '@/model/_';
+import { useObservable } from '@/utils/hooks/useObservable';
 import { ProcessTerminalInput } from '../ProcessTerminalInput/ProcessTerminalInput';
 import styles from './ProcessTerminal.module.css';
 
 interface ProcessTerminalProps {
-    foo?: string;
+    process: Process;
 }
 
 export function ProcessTerminal(props: ProcessTerminalProps) {
-    const { foo } = props;
+    const { process } = props;
+
+    // TODO: !!! Aggregate
+    let { value: logs } = useObservable(process.logs);
+
+    if (!logs) {
+        // TODO: Do we want some message for empty logs
+        logs = '';
+    }
+
     return (
         <div className={styles.ProcessTerminal}>
             <div className={styles.output}>
-                <ul>
-                    {/* TODO: This will be in data model */}
+                <ul dangerouslySetInnerHTML={{ __html: logs }} />
+                {/* TODO: This will be in data model */}
+                {/* 
                     <li>
                         <span className="order">0</span>
                         <span className="time">11:10</span>
@@ -47,7 +59,7 @@ export function ProcessTerminal(props: ProcessTerminalProps) {
                             <span style={{ outline: '2px dotted #0f0' }}>rich</span> html.
                         </span>
                     </li>
-                </ul>
+                    */}
             </div>
             <div className={styles.input}>
                 <ProcessTerminalInput />
