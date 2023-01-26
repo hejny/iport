@@ -30,15 +30,11 @@
     overflow: hidden;
 }
 
-.output .inner {
+.output .inner,
+.input .inner {
     /*/
     outline: 1px dotted red;
     /**/
-
-    /*font-family: monospace;*/
-
-    background-color: #ffffff /* <- [🎨] */;
-    border: 1px solid #828790 /* <- [🎨] */;
 
     padding: 10px;
     margin: 10px;
@@ -47,6 +43,17 @@
     height: calc(100% - 20px);
 
     overflow-y: scroll;
+}
+
+.output .inner {
+    /*/
+    outline: 1px dotted red;
+    /**/
+
+    font-family: monospace;
+
+    border: 1px solid #828790 /* <- [🎨] */;
+    background-color: #ffffff /* <- [🎨] */;
 }
 
 .output .inner::-webkit-scrollbar {
@@ -123,4 +130,20 @@ TODO: Also show up and down arrows on the scrollbar
     height: 100%;
 
     background-color: rgba(224, 244, 248, 0.473) /* <- [🎨] */;
+}
+
+.input .inner {
+    /*/
+    outline: 1px dotted red;
+    /**/
+
+    background-color: #ffffffa1 /* <- [🎨] */;
+}
+
+.input input {
+    /*/
+    outline: 1px dotted red;
+    /**/
+
+    margin: 5px;
 }

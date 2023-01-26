@@ -37,7 +37,9 @@ export function ProcessTerminal(props: ProcessTerminalProps) {
                 </div>
             </div>
             <div className={styles.input}>
-                <ProcessTerminalInput />
+                <div className={styles.inner}>
+                    <ProcessTerminalInput />
+                </div>
             </div>
         </div>
     );
