@@ -1,1 +1,3 @@
 TODO: Make real favicon
+TODO: [🚛] Maybe create default favicon.ico
+TODO: (Fav/status)icons to (another)icons folder
