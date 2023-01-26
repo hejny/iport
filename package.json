@@ -13,8 +13,8 @@
         "test-integration-interactive": "./node_modules/.bin/cypress open",
         "prettier": "prettier --config .prettierrc --ignore-unknown --write \"{pages,public,styles}/**/*\"",
         "prettier-commit": "git diff --exit-code && npm run prettier && git add . && git commit --allow-empty -m \"🧹 Prettier\"",
-        "preversion": "git pull && npm run prettier-commit&& npm run lint && npm test",
-        "postversion": "git push && git push --tags && echo \"Check the deploy process: https://github.com/hejny/iport/actions/\""
+        "preversion": "git pull && npm run prettier-commit && npm run lint && npm test",
+        "postversion": "npm run build && npx gh-pages --dotfiles --dist ./out --repo https://github.com/hejny/iport && git push && git push --tags"
     },
     "devDependencies": {
         "@next/font": "13.1.4",
