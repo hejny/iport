@@ -5,7 +5,7 @@
 
     display: inline-block;
 
-    border: 1px solid #444 /* <- TODO: !!! Unite colors ACRY */;
+    border: 1px solid #444 /* <- [🎨] Unite colors ACRY */;
 }
 
 .right img {

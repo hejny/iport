@@ -5,9 +5,11 @@
 }
 
 .floatLeft {
+    margin: 5px;
     float: left;
 }
 
 .floatRight {
+    margin: 5px;
     float: right;
 }

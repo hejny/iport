@@ -24,7 +24,7 @@ export function ProcessesList(props: ProcessesListProps) {
                     </a>
                 </li>
                 <li>
-                    <a href="#c" target="c" style={{ color: '#00cc22', fontWeight: 'bold' }}>
+                    <a href="#c" target="c" style={{ color: '#008031', fontWeight: 'bold' }}>
                         <span className="time">11:23</span>
                         <span className="name">Process C [MCI]</span>
                     </a>
