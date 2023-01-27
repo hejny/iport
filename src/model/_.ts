@@ -107,6 +107,30 @@ export class MockedProcess implements Process {
                     `),
             );
 
+            observer.next(
+                spaceTrim(`
+                    <li>
+                        <span class="order">${order++}</span>
+                        <span class="time">11:55</span>
+                        <span class="log">
+                            - <i>Following are generated texts to simulate logs:</i>
+                        </span>
+                    </li>
+                    `),
+            );
+
+            observer.next(
+                spaceTrim(`
+                    <li>
+                        <span class="order">${order++}</span>
+                        <span class="time">11:55</span>
+                        <span class="log">
+                            - 
+                        </span>
+                    </li>
+                    `),
+            );
+
             const registration = Registration.create(async ({ isDestroyed }) => {
                 while (true) {
                     await forTime(1000 * (7 * Math.random()) /* <- TODO: Tweak time */);
