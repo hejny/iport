@@ -43,8 +43,8 @@ export class MockedProcess implements Process {
                 spaceTrim(`
                     <li>
                         <span class="order">${order++}</span>
-                        <span class="time">11:11</span>
-                        <span class="log">- Hello here is the sample LOG of ${document.title}</span>
+                        <span class="time">${moment().subtract(73, 'minutes').format('HH:mm')}</span>
+                        <span class="log">- ${document.title} logs</span>
                     </li>
                     `),
             );
@@ -52,9 +52,9 @@ export class MockedProcess implements Process {
                 spaceTrim(`
                     <li>
                         <span class="order">${order++}</span>
-                        <span class="time">11:15</span>
+                        <span class="time">${moment().subtract(70, 'minutes').format('HH:mm')}</span>
                         <span class="log">
-                            - Roses are <span style="color: red">red</span>
+                            - 🌹 Roses are <span style="color: red">red</span>
                         </span>
                     </li>
                     `),
@@ -63,9 +63,9 @@ export class MockedProcess implements Process {
                 spaceTrim(`
                     <li>
                         <span class="order">${order++}</span>
-                        <span class="time">11:20</span>
+                        <span class="time">${moment().subtract(40, 'minutes').format('HH:mm')}</span>
                         <span class="log">
-                            - Violets are <span style="color: blue">blue</span>
+                            - 🎻 Violets are <span style="color: blue">blue</span>
                         </span>
                     </li>
                     `),
@@ -74,10 +74,10 @@ export class MockedProcess implements Process {
                 spaceTrim(`
                     <li>
                         <span class="order">${order++}</span>
-                        <span class="time">11:25</span>
+                        <span class="time">${moment().subtract(32, 'minutes').format('HH:mm')}</span>
                         <span class="log">
                             - Logs can be <span style="font-weight: bold">bold</span>
-                              and span style="fontStyle: italic">italic</span> too!
+                              
                         </span>
                     </li>
                     `),
@@ -86,7 +86,18 @@ export class MockedProcess implements Process {
                 spaceTrim(`
                     <li>
                         <span class="order">${order++}</span>
-                        <span class="time">11:35</span>
+                        <span class="time">${moment().subtract(32, 'minutes').format('HH:mm')}</span>
+                        <span class="log">
+                            - And <span style="font-style: italic">italic</span> too!
+                        </span>
+                    </li>
+                    `),
+            );
+            observer.next(
+                spaceTrim(`
+                    <li>
+                        <span class="order">${order++}</span>
+                        <span class="time">${moment().subtract(20, 'minutes').format('HH:mm')}</span>
                         <span class="log">
                             - PS: You can also <a href="https://pavolhejny.com">link</a> with
                             <span style="outline: 2px dotted #0f0">rich</span> html.
@@ -99,7 +110,7 @@ export class MockedProcess implements Process {
                 spaceTrim(`
                     <li>
                         <span class="order">${order++}</span>
-                        <span class="time">11:44</span>
+                        <span class="time">${moment().subtract(7, 'minutes').format('HH:mm')}</span>
                         <span class="log">
                             - --------------------------------------------------
                         </span>
@@ -111,7 +122,7 @@ export class MockedProcess implements Process {
                 spaceTrim(`
                     <li>
                         <span class="order">${order++}</span>
-                        <span class="time">11:55</span>
+                        <span class="time">${moment().subtract(2, 'minutes').format('HH:mm')}</span>
                         <span class="log">
                             - <i>Following are generated texts to simulate logs:</i>
                         </span>
@@ -123,7 +134,7 @@ export class MockedProcess implements Process {
                 spaceTrim(`
                     <li>
                         <span class="order">${order++}</span>
-                        <span class="time">11:55</span>
+                        <span class="time">${moment().subtract(1, 'minute').format('HH:mm')}</span>
                         <span class="log">
                             - 
                         </span>
