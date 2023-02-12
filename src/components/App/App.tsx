@@ -31,6 +31,7 @@ function changeFavicon(url: string_url_image) {
 
 export function App(props: AppProps) {
     const [isProcessListVisible, toggleProcessListVisible] = useToggle(true);
+    const [isTerminalPinned, toggleTerminalPinned] = useToggle(false);
 
     useEffect(() => {
         // TODO: !!! Better + do in other place outside of component
@@ -80,10 +81,12 @@ export function App(props: AppProps) {
                 </nav>
             )}
             <main className={styles.ProcessTerminal}>
-                <ProcessTerminal {...{ process }} />
+                <ProcessTerminal {...{ process, isTerminalPinned }} />
             </main>
             <footer className={styles.BottomToolbar}>
-                <BottomToolbar {...{ isProcessListVisible, toggleProcessListVisible }} />
+                <BottomToolbar
+                    {...{ isProcessListVisible, toggleProcessListVisible, isTerminalPinned, toggleTerminalPinned }}
+                />
             </footer>
         </main>
     );

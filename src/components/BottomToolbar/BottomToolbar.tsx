@@ -1,17 +1,17 @@
 import { version } from '../../../package.json';
-import { useToggle } from '../../utils/hooks/useToggle';
 import { BottomToolbarButton } from '../BottomToolbarButton/BottomToolbarButton';
 import styles from './BottomToolbar.module.css';
 
 interface BottomToolbarProps {
     isProcessListVisible: boolean;
     toggleProcessListVisible(): void;
+
+    isTerminalPinned: boolean;
+    toggleTerminalPinned(): void;
 }
 
 export function BottomToolbar(props: BottomToolbarProps) {
-    const { isProcessListVisible, toggleProcessListVisible } = props;
-
-    const [isTerminalPinned, toggleTerminalPinned] = useToggle(false);
+    const { isProcessListVisible, toggleProcessListVisible, isTerminalPinned, toggleTerminalPinned } = props;
 
     return (
         <div className={styles.BottomToolbar}>

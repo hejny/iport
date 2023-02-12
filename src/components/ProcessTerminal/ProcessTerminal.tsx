@@ -7,10 +7,11 @@ import styles from './ProcessTerminal.module.css';
 
 interface ProcessTerminalProps {
     process: Process;
+    isTerminalPinned: boolean;
 }
 
 export function ProcessTerminal(props: ProcessTerminalProps) {
-    const { process } = props;
+    const { process, isTerminalPinned } = props;
 
     // TODO: Probbably make some util/hook for this and separate component from aggregation logic
     const logsObservable = useMemo(
@@ -32,7 +33,19 @@ export function ProcessTerminal(props: ProcessTerminalProps) {
     return (
         <div className={styles.ProcessTerminal}>
             <div className={styles.output}>
-                <div className={styles.inner}>
+                <div
+                    className={styles.inner}
+                    ref={(element) => {
+                        if (!element) {
+                            return;
+                        }
+
+                        if (isTerminalPinned) {
+                            return;
+                        }
+                        element.scrollBy(0, 10000);
+                    }}
+                >
                     <ul dangerouslySetInnerHTML={{ __html: logs }} />
                 </div>
             </div>
