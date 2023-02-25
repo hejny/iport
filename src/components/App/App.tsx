@@ -7,8 +7,8 @@ import iconB from '../../../public/b.ico';
 import iconC from '../../../public/c.ico';
 import { useToggle } from '../../utils/hooks/useToggle';
 import { BottomToolbar } from '../BottomToolbar/BottomToolbar';
-import { ProcessTerminal } from '../ProcessTerminal/ProcessTerminal';
 import { ProcessesList } from '../ProcessesList/ProcessesList';
+import { ProcessTerminal } from '../ProcessTerminal/ProcessTerminal';
 import styles from './App.module.css';
 
 interface AppProps {}
