@@ -5,9 +5,9 @@ import { useProcessId } from '@/utils/useProcessId';
 import { useEffect, useMemo } from 'react';
 import { useToggle } from '../../utils/hooks/useToggle';
 import { BottomToolbar } from '../BottomToolbar/BottomToolbar';
-import { ProcessTerminal } from '../ProcessTerminal/ProcessTerminal';
 import { ProcessesList } from '../ProcessesList/ProcessesList';
 import { StartModal } from '../StartModal/StartModal';
+import { ProcessTerminal } from '../ProcessTerminal/ProcessTerminal';
 import styles from './App.module.css';
 
 interface AppProps {}

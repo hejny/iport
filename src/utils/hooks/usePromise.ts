@@ -4,7 +4,7 @@ import {
     IUseLoadableResultComplete,
     IUseLoadableResultError,
     IUseLoadableResultPending,
-    IUseLoadableResultStatus,
+    IUseLoadableResultStatus
 } from './useLoadable';
 
 type IUsePromiseResult<TValue> =
