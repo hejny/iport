@@ -1,20 +1,19 @@
-import { MockedProcess } from '@/model/mock/_';
+import { MockedServerConnector } from '@/model/mock/_';
 import { classNames } from '@/utils/classNames';
 import { string_url_image } from '@/utils/typeAliases';
+import { useProcessId } from '@/utils/useProcessId';
 import { useEffect, useMemo } from 'react';
-import iconA from '../../../public/a.ico';
-import iconB from '../../../public/b.ico';
-import iconC from '../../../public/c.ico';
 import { useToggle } from '../../utils/hooks/useToggle';
 import { BottomToolbar } from '../BottomToolbar/BottomToolbar';
 import { ProcessTerminal } from '../ProcessTerminal/ProcessTerminal';
 import { ProcessesList } from '../ProcessesList/ProcessesList';
+import { StartModal } from '../StartModal/StartModal';
 import styles from './App.module.css';
 
 interface AppProps {}
 
 // TODO: Extract as util
-// TODO: This is not working in most of the browsers
+// TODO: !!! This is not working in most of the browsers
 function changeFavicon(url: string_url_image) {
     // TODO: Enhance
     let linkElement: HTMLLinkElement | null = document.querySelector("link[rel~='icon']");
@@ -33,40 +32,25 @@ export function App(props: AppProps) {
     const [isProcessListVisible, toggleProcessListVisible] = useToggle(true);
     const [isTerminalPinned, toggleTerminalPinned] = useToggle(false);
 
-    useEffect(() => {
-        // TODO: !!! Better + do in other place outside of component
-        const processName = window.location.hash.substring(1).toUpperCase();
-        const processStatusFaviconUrl = (() => {
-            // TODO: !!! Better
-            return (
-                {
-                    A: iconA,
-                    B: iconB,
-                    C: iconC,
-                }[processName] || iconA
-            ).src;
-        })();
-
-        const processStatusChar = (() => {
-            // TODO: !!! Better
-            return (
-                {
-                    A: '⬜',
-                    B: '🟥',
-                    C: '🟩',
-                }[processName] || '⬜'
-            );
-        })();
-
-        changeFavicon(processStatusFaviconUrl);
-        window.document.title = `${processStatusChar} Proces ${processName}`;
-    });
-
-    // TODO: !!! Better + do in other place outside of component
-    // TODO: !!! Better + do it (probbably) via React context
-    const process = useMemo(() => {
-        return new MockedProcess();
+    const processId = useProcessId();
+    const serverConnector = useMemo(() => {
+        // TODO: Pass it (probbably) via React context
+        return new MockedServerConnector();
+        // !!! return new ServerConnector(SERVER_URL);
     }, []);
+
+    const process = !processId ? null : serverConnector.getProcessById(processId);
+
+    useEffect(() => {
+        // TODO: Do outside of component probbably IN custom hook
+        // TODO: changeFavicon(processStatusFaviconUrl);
+
+        if (!process) {
+            return;
+        }
+
+        window.document.title = process.processTitle;
+    });
 
     return (
         <main
@@ -77,11 +61,11 @@ export function App(props: AppProps) {
         >
             {isProcessListVisible && (
                 <nav className={styles.ProcessesList}>
-                    <ProcessesList />
+                    <ProcessesList {...{ serverConnector }} />
                 </nav>
             )}
             <main className={styles.ProcessTerminal}>
-                <ProcessTerminal {...{ process, isTerminalPinned }} />
+                {!process ? <StartModal /> : <ProcessTerminal {...{ process, isTerminalPinned }} />}
             </main>
             <footer className={styles.BottomToolbar}>
                 <BottomToolbar

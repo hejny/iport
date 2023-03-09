@@ -1,4 +1,4 @@
-import { version } from '../../../package.json';
+import { version as appVersion } from '../../../package.json';
 import { BottomToolbarButton } from '../BottomToolbarButton/BottomToolbarButton';
 import styles from './BottomToolbar.module.css';
 
@@ -25,7 +25,7 @@ export function BottomToolbar(props: BottomToolbarProps) {
             <div className={styles.floatRight}>
                 <BottomToolbarButton direction={'DOWN'} isClosed={isTerminalPinned} onClick={toggleTerminalPinned} />
             </div>
-            <div className={styles.floatRight}>{`v${version}`} </div>
+            <div className={styles.floatRight}>{`v${appVersion}`} </div>
         </div>
     );
 }

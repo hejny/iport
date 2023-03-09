@@ -15,8 +15,7 @@ export function ProcessTerminal(props: ProcessTerminalProps) {
 
     // TODO: Probbably make some util/hook for this and separate component from aggregation logic
     const logsObservable = useMemo(
-        () =>
-            process.logs.pipe(scan((logs, log) => logs + log /* <- TODO: Template with spacetrim */, '')).pipe(share()),
+        () => process.logs.pipe(scan((logs, log) => logs + log, '')).pipe(share()),
         [process],
     );
 

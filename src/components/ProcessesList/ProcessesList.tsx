@@ -1,15 +1,26 @@
+import { ServerConnector } from '@/model/mock/_';
+import { useObservable } from '@/utils/hooks/useObservable';
 import styles from './ProcessesList.module.css';
 
 interface ProcessesListProps {
-    foo?: string;
+    serverConnector: ServerConnector;
 }
 
 export function ProcessesList(props: ProcessesListProps) {
-    const { foo } = props;
+    const { serverConnector } = props;
+
+    // !!!! Use serverConnector
+
+    let { value: processList } = useObservable(serverConnector.processList);
+
     return (
         <div className={styles.ProcessesList}>
             <h2>Seznam procesů: </h2>
             <ul>
+                {(processList || []).map((process) => (
+                    <li key={process.processId} dangerouslySetInnerHTML={{ __html: process.processTitle }} />
+                ))}
+
                 {/* TODO: This will be in data model */}
                 <li>
                     <a href="#a" target="a">

@@ -1,10 +1,10 @@
-import styles from './StartModalInput.module.css';
+import styles from './StartModal.module.css';
 
-interface StartModalInputProps {
+interface StartModalProps {
     foo?: string;
 }
 
-export function StartModalInput(props: StartModalInputProps) {
+export function StartModal(props: StartModalProps) {
     const { foo } = props;
-    return <div className={styles.StartModalInput}>StartModalInput{foo}</div>;
+    return <div className={styles.StartModal}>StartModal{foo}</div>;
 }
