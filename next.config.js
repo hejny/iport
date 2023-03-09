@@ -2,7 +2,7 @@
 
 nextConfig = {
     experimental: {
-        appDir: true /* <- TODO: !!! Same in rapid prototyping */,
+        appDir: true,
     },
     reactStrictMode: true,
     images: {

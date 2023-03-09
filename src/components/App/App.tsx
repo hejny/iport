@@ -1,32 +1,15 @@
 import { MockedServerConnector } from '@/model/mock/10-MockedServerConnector';
 import { classNames } from '@/utils/classNames';
-import { string_url_image } from '@/utils/typeAliases';
-import { useProcessId } from '@/utils/useProcessId';
+import { useProcessId } from '@/utils/hooks/useProcessId';
 import { useEffect, useMemo } from 'react';
 import { useToggle } from '../../utils/hooks/useToggle';
 import { BottomToolbar } from '../BottomToolbar/BottomToolbar';
+import { ProcessTerminal } from '../ProcessTerminal/ProcessTerminal';
 import { ProcessesList } from '../ProcessesList/ProcessesList';
 import { StartModal } from '../StartModal/StartModal';
-import { ProcessTerminal } from '../ProcessTerminal/ProcessTerminal';
 import styles from './App.module.css';
 
 interface AppProps {}
-
-// TODO: Extract as util
-// TODO: !!! This is not working in most of the browsers
-function changeFavicon(url: string_url_image) {
-    // TODO: Enhance
-    let linkElement: HTMLLinkElement | null = document.querySelector("link[rel~='icon']");
-
-    // console.log({ linkElement });
-
-    if (!linkElement) {
-        linkElement = document.createElement('link');
-        linkElement.rel = 'icon';
-        document.head.appendChild(linkElement);
-    }
-    linkElement.href = url;
-}
 
 export function App(props: AppProps) {
     const [isProcessListVisible, toggleProcessListVisible] = useToggle(true);
