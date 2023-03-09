@@ -1,4 +1,4 @@
-import { Process } from '@/model/mock/_';
+import { Process } from '@/model/interfaces/20-Process';
 import { useObservable } from '@/utils/hooks/useObservable';
 import { useMemo } from 'react';
 import { scan, share } from 'rxjs';

@@ -1,4 +1,4 @@
-import { MockedServerConnector } from '@/model/mock/_';
+import { MockedServerConnector } from '@/model/mock/10-MockedServerConnector';
 import { classNames } from '@/utils/classNames';
 import { string_url_image } from '@/utils/typeAliases';
 import { useProcessId } from '@/utils/useProcessId';

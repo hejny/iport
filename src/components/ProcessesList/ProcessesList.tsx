@@ -1,4 +1,4 @@
-import { ServerConnector } from '@/model/mock/_';
+import { ServerConnector } from '@/model/interfaces/10-ServerConnector';
 import { useObservable } from '@/utils/hooks/useObservable';
 import styles from './ProcessesList.module.css';
 
