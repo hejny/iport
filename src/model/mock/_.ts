@@ -6,7 +6,7 @@ import moment from 'moment';
 import { Observable } from 'rxjs';
 import spaceTrim from 'spacetrim';
 import { forTime } from 'waitasecond';
-import { string_html } from '../utils/typeAliases';
+import { string_html } from '../../utils/typeAliases';
 
 // !!! Better name
 export interface ServerConnector {

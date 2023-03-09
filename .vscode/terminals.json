@@ -13,6 +13,12 @@
             "focus": true
         },
         {
+            "name": "🌎🧪 Run mocked server",
+            "cwd": "./mocked-server",
+            "command": "ts-node server.ts",
+            "focus": true
+        },
+        {
             "name": "🧪 Lint",
             "command": "npm run lint",
             "onlySingle": true,

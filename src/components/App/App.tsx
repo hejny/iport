@@ -1,4 +1,4 @@
-import { MockedProcess } from '@/model/_';
+import { MockedProcess } from '@/model/mock/_';
 import { classNames } from '@/utils/classNames';
 import { string_url_image } from '@/utils/typeAliases';
 import { useEffect, useMemo } from 'react';
