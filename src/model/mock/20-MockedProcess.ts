@@ -30,10 +30,7 @@ export class MockedProcess implements Process {
     }
 
     async recieveInput(input: InputData): Promise<void> {
-        // !!! Make active and replay message + color into the logs
-
         if (input.message.trim() === '') {
-            // TODO: !!! Test the error handling in frontend
             throw new Error(`You need to specify a message`);
         }
 

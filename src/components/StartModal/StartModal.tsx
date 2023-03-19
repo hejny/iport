@@ -29,14 +29,23 @@ export function StartModal(props: StartModalProps) {
                         const formData = new FormData(formElement);
                         const data = Object.fromEntries(formData);
 
-                        const processId = await serverConnector.recieveNewProcessOptions(data as InputData);
+                        try {
+                            const processId = await serverConnector.recieveNewProcessOptions(data as InputData);
 
-                        const url = new URL(window.location.href);
-                        url.hash = '#' + processId.toString();
+                            const url = new URL(window.location.href);
+                            url.hash = '#' + processId.toString();
 
-                        window.open(url, processId.toString());
+                            window.open(url, processId.toString());
 
-                        formElement.reset();
+                            formElement.reset();
+                        } catch (error) {
+                            if (!(error instanceof Error)) {
+                                throw error;
+                            }
+
+                            console.error(error);
+                            alert(error.message);
+                        }
                     });
                 }
             }}
