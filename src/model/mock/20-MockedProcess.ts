@@ -8,8 +8,6 @@ import { checkServerHtml } from '../utils/checkServerHtml';
 import { checkServerHtmlWithInput } from '../utils/checkServerHtmlWithInput';
 
 export class MockedProcess implements Process {
-    // TODO: !!! Implement
-    // TODO: !!! Implement unmocked version
     public constructor(public readonly processId: ProcessId) {
         /* not await */ this.startMockedLogs();
     }
@@ -19,17 +17,19 @@ export class MockedProcess implements Process {
     }
 
     public get menuItem() {
-        return checkServerHtml(`
+        return checkServerHtml(
+            `
             <a href="#${this.processId}" target="${
-            this.processId
-        }" style={{ color: '${faker.color.rgb()}', fontWeight: '${Math.random() > 0.8 ? 'bold' : 'normal'}' }}>
-                <span className="time">${moment().format('HH:mm')}</span>
-                <span className="name">${this.processTitle}</span>
+                this.processId
+            }" style={{ color: '${faker.color.rgb()}', fontWeight: '${Math.random() > 0.8 ? 'bold' : 'normal'}' }}>
+                <span class="time">${moment().format('HH:mm')}</span>` +
+                `<span class="name">${this.processTitle}</span>
             </a>
-        `);
+        `,
+        );
     }
 
-    async recieveInput(input: InputData): Promise<void> {
+    public async recieveInput(input: InputData): Promise<void> {
         if (input.message.trim() === '') {
             throw new Error(`You need to specify a message`);
         }
@@ -53,13 +53,12 @@ export class MockedProcess implements Process {
 
     private logOrder = 0;
     private newLog(log: ServerHtml) {
-        // TODO: !!! Maybe logs in reverse
-        // TODO: !!! Maybe recycle old array object and just push into it
+        // TODO: Maybe logs in reverse - most recent logs are more important and maybe it is optimal to have them as first items in the array
+        // TODO: Maybe recycle old array object and just push into it
         this.logs.next([...this.logs.value, log]);
     }
 
     public async startMockedLogs() {
-        // Note: Replay initial logs
         this.newLog(
             checkServerHtml(`
                 <li>

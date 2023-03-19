@@ -1,6 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { Registration } from 'destroyable';
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { forTime } from 'waitasecond';
 import { InputData, ProcessId } from '../interfaces/00-common';
 import { ServerConnector } from '../interfaces/10-ServerConnector';
@@ -9,8 +8,10 @@ import { checkServerHtmlWithInput } from '../utils/checkServerHtmlWithInput';
 import { MockedProcess } from './20-MockedProcess';
 
 export class MockedServerConnector implements ServerConnector {
-    // TODO: !!! Implement
-    // TODO: !!! Implement unmocked version
+    public constructor(public readonly processId: ProcessId) {
+        /* not await */ this.startMockedProcesses();
+    }
+
     public getProcessById(processId: ProcessId) {
         return new MockedProcess(processId);
     }
@@ -18,6 +19,11 @@ export class MockedServerConnector implements ServerConnector {
     public newProcessOptions = checkServerHtmlWithInput(`
     
         <form>
+            <label>
+                Start process ID:
+                <input type="text" name="processId"/>
+            </label>
+
             <label>
                 Start process named:
                 <input type="text" name="processTitle"/>
@@ -28,54 +34,39 @@ export class MockedServerConnector implements ServerConnector {
         </form>
 
         <form>
-            <input type="hidden" name="processTitle" value="Foo process"/>
+            <input type="hidden" name="processId" value="foo"/>
+            <input type="hidden" name="processTitle" value="Foo"/>
             <input type="submit" value="Start foo"/>
         </form>
 
         <form>
-            <input type="hidden" name="processTitle" value="Bar process"/>
+            <input type="hidden" name="processId" value="bar"/>
+            <input type="hidden" name="processTitle" value="Bar"/>
             <input type="submit" value="Start bar"/>
         </form>
         
     `);
 
     public async recieveNewProcessOptions(input: InputData): Promise<ProcessId> {
-        // !!! Make active and replay message + color into the logs
-
-        console.log({ input });
-
-        return 'a';
+        // !!! Make processTitle and processId different
+        this.newProcess(new MockedProcess(input.processTitle));
+        return input.processId;
     }
 
-    public get processList() {
-        return new Observable<Array<Process>>((observer) => {
-            // console.log('Observable');
-            let processes = [new MockedProcess(`first`)];
+    public processList = new BehaviorSubject<Array<Process>>([]);
 
-            let order = 0;
+    private newProcess(process: Process) {
+        // TODO: Maybe recycle old array object and just push into it
+        this.processList.next([...this.processList.value, process]);
+    }
 
-            // Note: Replay initial logs
-            observer.next(processes);
+    public async startMockedProcesses() {
+        this.newProcess(new MockedProcess(`first`));
 
-            const registration = Registration.create(async ({ isDestroyed }) => {
-                while (true) {
-                    await forTime(1000 * (7 * Math.random()) /* <- TODO: Tweak time */);
+        while (true) {
+            await forTime(1000 * (60 * Math.random()) /* <- TODO: Tweak time */);
 
-                    /*
-                    if (order > 50) {
-                        return;
-                    }
-                    */
-                    if (isDestroyed()) {
-                        return;
-                    }
-
-                    processes = [...processes, new MockedProcess(faker.hacker.verb())];
-                    observer.next(processes);
-                }
-            });
-
-            return () => registration.destroy();
-        });
+            this.newProcess(new MockedProcess(faker.hacker.verb()));
+        }
     }
 }

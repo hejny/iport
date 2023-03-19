@@ -9,8 +9,6 @@ interface ProcessesListProps {
 export function ProcessesList(props: ProcessesListProps) {
     const { serverConnector } = props;
 
-    // !!!! Use serverConnector
-
     let { value: processList } = useObservable(serverConnector.processList);
 
     return (
@@ -18,7 +16,7 @@ export function ProcessesList(props: ProcessesListProps) {
             <h2>Seznam procesů: </h2>
             <ul>
                 {(processList || []).map((process) => (
-                    <li key={process.processId} dangerouslySetInnerHTML={{ __html: process.processTitle }} />
+                    <li key={process.processId} dangerouslySetInnerHTML={{ __html: process.menuItem }} />
                 ))}
 
                 {/* TODO: This will be in data model */}
@@ -46,8 +44,3 @@ export function ProcessesList(props: ProcessesListProps) {
         </div>
     );
 }
-
-/**
- * TODO: Use <ul/> + li
- * TODO: ACRY replace foo prop
- */
