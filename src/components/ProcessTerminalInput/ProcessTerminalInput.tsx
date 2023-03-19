@@ -25,14 +25,19 @@ export function ProcessTerminalInput(props: ProcessTerminalInputProps) {
                     return;
                 }
 
+                console.log('ref');
+
                 for (const formElement of Array.from(element.querySelectorAll('form'))) {
+                    if (formElement.dataset.iportActive === '1') {
+                        continue;
+                    }
+                    formElement.dataset.iportActive = '1';
                     formElement.addEventListener('submit', async (event) => {
                         event.preventDefault();
 
                         const formData = new FormData(formElement);
                         const data = Object.fromEntries(formData);
 
-                        // !!! Why 2x
                         await process.recieveInput(data as InputData);
                     });
                 }

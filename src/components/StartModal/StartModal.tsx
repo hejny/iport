@@ -19,6 +19,10 @@ export function StartModal(props: StartModalProps) {
                 }
 
                 for (const formElement of Array.from(element.querySelectorAll('form'))) {
+                    if (formElement.dataset.iportActive === '1') {
+                        continue;
+                    }
+                    formElement.dataset.iportActive = '1';
                     formElement.addEventListener('submit', async (event) => {
                         event.preventDefault();
 
