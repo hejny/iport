@@ -18,3 +18,14 @@ import { string_html } from '../../utils/typeAliases';
  * Note: It is just a typescript-branded type to ensure that instead can not be passed some random string
  */
 export type ServerHtml = string_html & { __type: 'ServerHtml' };
+
+/**
+ * !!!
+ */
+export type ServerHtmlWithInput = ServerHtml & { __type: 'ServerHtmlWithInput' };
+
+/**
+ *
+ * Note: There is already build-in type for html form data but !!!
+ */
+export type InputData = Record<string, string>;

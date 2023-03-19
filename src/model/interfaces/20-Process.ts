@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { ServerHtml } from './00-ServerHtml';
+import { InputData, ServerHtml, ServerHtmlWithInput } from './00-common';
 
 /**
  * Object that represents one running process on the server
@@ -29,11 +29,24 @@ export interface Process {
      * > </a>
      *
      */
-    processMenuItem: ServerHtml;
+    menuItem: ServerHtml;
 
     /**
      * Incomming logs
      * Each item will be shown in a new row
      */
     logs: Observable<ServerHtml>;
+
+    /**
+     * Incomming logs
+     * Each item will be shown in a new row
+     */
+    input: Observable<ServerHtmlWithInput>;
+
+    /**
+     * !!!
+     *
+     * If the recive fails it throws an Error (rejects the promise)
+     */
+    recieveInput(input: InputData): Promise<void>;
 }

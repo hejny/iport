@@ -1,11 +1,12 @@
 import { faker } from '@faker-js/faker';
 import { Registration } from 'destroyable';
 import moment from 'moment';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { forTime } from 'waitasecond';
-import { ServerHtml } from '../interfaces/00-ServerHtml';
+import { InputData, ServerHtml } from '../interfaces/00-common';
 import { Process } from '../interfaces/20-Process';
 import { checkServerHtml } from '../utils/checkServerHtml';
+import { checkServerHtmlWithInput } from '../utils/checkServerHtmlWithInput';
 
 export class MockedProcess implements Process {
     // TODO: !!! Implement
@@ -16,7 +17,7 @@ export class MockedProcess implements Process {
         return `Process ${this.processId.toString().toUpperCase()}`;
     }
 
-    public get processMenuItem() {
+    public get menuItem() {
         return checkServerHtml(`
             <a href="#${this.processId}" target="${
             this.processId
@@ -25,6 +26,10 @@ export class MockedProcess implements Process {
                 <span className="name">${this.processTitle}</span>
             </a>
         `);
+    }
+
+    async recieveInput(input: InputData): Promise<void> {
+        // !!! Make active and replay message + color into the logs
     }
 
     public get logs() {
@@ -170,4 +175,30 @@ export class MockedProcess implements Process {
             return () => registration.destroy();
         });
     }
+
+    input = new BehaviorSubject(
+        checkServerHtmlWithInput(`
+            <form>
+                <label>
+                    Send something to server:
+                    <input type="text" name="message"/>
+                </label>
+
+                <label>
+                    Choose a style:
+                    <select id="color" name="color">
+                    <option value="red">Red</option>
+                    <option value="green">Green</option>
+                    <option value="blue">Blue</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="orange">Orange</option>
+                    <option value="purple">Purple</option>
+                    </select>
+                </label>
+
+                <input type="submit" value="send"/>
+                
+            </form>
+        `),
+    );
 }
