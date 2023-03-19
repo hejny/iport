@@ -1,4 +1,6 @@
-export function useProcessId(): null | string | number {
+import { ProcessId } from '@/model/interfaces/00-common';
+
+export function useProcessId(): null | ProcessId {
     if (typeof window === 'undefined') {
         return null;
     }

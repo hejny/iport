@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { InputData, ServerHtml, ServerHtmlWithInput } from './00-common';
+import { InputData, ProcessId, ServerHtml, ServerHtmlWithInput } from './00-common';
 
 /**
  * Object that represents one running process on the server
@@ -8,7 +8,7 @@ export interface Process {
     /**
      * Any unique identification of the process
      */
-    processId: string | number;
+    processId: ProcessId;
 
     /**
      * Title of the process

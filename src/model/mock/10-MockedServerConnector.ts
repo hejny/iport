@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 import { Registration } from 'destroyable';
 import { Observable } from 'rxjs';
 import { forTime } from 'waitasecond';
-import { InputData } from '../interfaces/00-common';
+import { InputData, ProcessId } from '../interfaces/00-common';
 import { ServerConnector } from '../interfaces/10-ServerConnector';
 import { Process } from '../interfaces/20-Process';
 import { checkServerHtmlWithInput } from '../utils/checkServerHtmlWithInput';
@@ -11,7 +11,7 @@ import { MockedProcess } from './20-MockedProcess';
 export class MockedServerConnector implements ServerConnector {
     // TODO: !!! Implement
     // TODO: !!! Implement unmocked version
-    public getProcessById(processId: string | number) {
+    public getProcessById(processId: ProcessId) {
         return new MockedProcess(processId);
     }
 

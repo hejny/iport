@@ -1,10 +1,17 @@
+import { ServerConnector } from '@/model/interfaces/10-ServerConnector';
 import styles from './StartModal.module.css';
 
 interface StartModalProps {
-    foo?: string;
+    serverConnector: ServerConnector;
 }
 
 export function StartModal(props: StartModalProps) {
-    const { foo } = props;
-    return <div className={styles.StartModal}>StartModal{foo}</div>;
+    const { serverConnector } = props;
+
+    return (
+        <div
+            className={styles.StartModal}
+            dangerouslySetInnerHTML={{ __html: serverConnector.newProcessOptions }}
+        ></div>
+    );
 }

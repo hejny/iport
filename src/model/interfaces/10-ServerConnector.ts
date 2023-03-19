@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { InputData, ServerHtmlWithInput } from './00-common';
+import { InputData, ProcessId, ServerHtmlWithInput } from './00-common';
 import { Process } from './20-Process';
 
 /**
@@ -15,7 +15,7 @@ export interface ServerConnector {
     /**
      * Get any process by its ID
      */
-    getProcessById(processId: string | number): Process;
+    getProcessById(processId: ProcessId): Process;
 
     /**
      * !!!
@@ -26,6 +26,8 @@ export interface ServerConnector {
      * !!!
      *
      * If the recive fails it throws an Error (rejects the promise)
+     *
+     * !!! param + return
      */
-    recieveNewProcessOptions(input: InputData): Promise<void>;
+    recieveNewProcessOptions(input: InputData): Promise<ProcessId>;
 }

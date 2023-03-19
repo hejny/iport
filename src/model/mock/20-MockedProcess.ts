@@ -3,7 +3,7 @@ import { Registration } from 'destroyable';
 import moment from 'moment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { forTime } from 'waitasecond';
-import { InputData, ServerHtml } from '../interfaces/00-common';
+import { InputData, ProcessId, ServerHtml } from '../interfaces/00-common';
 import { Process } from '../interfaces/20-Process';
 import { checkServerHtml } from '../utils/checkServerHtml';
 import { checkServerHtmlWithInput } from '../utils/checkServerHtmlWithInput';
@@ -11,7 +11,7 @@ import { checkServerHtmlWithInput } from '../utils/checkServerHtmlWithInput';
 export class MockedProcess implements Process {
     // TODO: !!! Implement
     // TODO: !!! Implement unmocked version
-    public constructor(public readonly processId: string | number) {}
+    public constructor(public readonly processId: ProcessId) {}
 
     public get processTitle() {
         return `Process ${this.processId.toString().toUpperCase()}`;

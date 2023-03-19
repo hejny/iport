@@ -29,3 +29,5 @@ export type ServerHtmlWithInput = ServerHtml & { __type: 'ServerHtmlWithInput' }
  * Note: There is already build-in type for html form data but !!!
  */
 export type InputData = Record<string, string>;
+
+export type ProcessId = string | number;
