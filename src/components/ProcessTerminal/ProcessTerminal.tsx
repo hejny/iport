@@ -1,7 +1,6 @@
 import { Process } from '@/model/interfaces/20-Process';
+import { checkServerHtml } from '@/model/utils/checkServerHtml';
 import { useObservable } from '@/utils/hooks/useObservable';
-import { useMemo } from 'react';
-import { scan, share } from 'rxjs';
 import { ProcessTerminalInput } from '../ProcessTerminalInput/ProcessTerminalInput';
 import styles from './ProcessTerminal.module.css';
 
@@ -14,19 +13,13 @@ export function ProcessTerminal(props: ProcessTerminalProps) {
     const { process, isTerminalPinned } = props;
 
     // TODO: Probbably make some util/hook for this and separate component from aggregation logic
-    const logsObservable = useMemo(
-        () => process.logs.pipe(scan((logs, log) => logs + log, '')).pipe(share()),
-        [process],
-    );
-
-    // TODO: Probbably make some util/hook for this and separate component from aggregation logic
-    let { value: logs } = useObservable(logsObservable);
+    let { value: logs } = useObservable(process.logs);
 
     // console.log('ProcessTerminal', logs);
 
-    if (!logs) {
+    if (!logs || logs.length === 0) {
         // TODO: Do we want some message for empty logs
-        logs = '<li><i>No logs yet</i></li>';
+        logs = [checkServerHtml('<li><i>No logs yet</i></li>')];
     }
 
     return (
@@ -45,12 +38,16 @@ export function ProcessTerminal(props: ProcessTerminalProps) {
                         element.scrollBy(0, 10000);
                     }}
                 >
-                    <ul dangerouslySetInnerHTML={{ __html: logs }} />
+                    <ul>
+                        {logs.map((log, i) => (
+                            <li key={i} dangerouslySetInnerHTML={{ __html: log }} />
+                        ))}
+                    </ul>
                 </div>
             </div>
             <div className={styles.input}>
                 <div className={styles.inner}>
-                    <ProcessTerminalInput />
+                    <ProcessTerminalInput {...{ process }} />
                 </div>
             </div>
         </div>

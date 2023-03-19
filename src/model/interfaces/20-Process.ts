@@ -33,13 +33,13 @@ export interface Process {
 
     /**
      * Incomming logs
-     * Each item will be shown in a new row
+     * !!! Each item will be shown in a new row
+     * !!! Maybe change to Behaviour subject ACRY + ACRY use only BehaviourSubject
      */
-    logs: Observable<ServerHtml>;
+    logs: Observable<Array<ServerHtml>>;
 
     /**
-     * Incomming logs
-     * Each item will be shown in a new row
+     * !!!
      */
     input: Observable<ServerHtmlWithInput>;
 

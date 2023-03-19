@@ -1,16 +1,42 @@
+import { InputData } from '@/model/interfaces/00-common';
+import { Process } from '@/model/interfaces/20-Process';
+import { useObservable } from '@/utils/hooks/useObservable';
 import styles from './ProcessTerminalInput.module.css';
 
 interface ProcessTerminalInputProps {
-    foo?: string;
+    process: Process;
 }
 
 export function ProcessTerminalInput(props: ProcessTerminalInputProps) {
-    const { foo } = props;
+    const { process } = props;
+
+    const { value } = useObservable(process.input);
+
+    if (!value) {
+        return <></>;
+    }
+
     return (
-        <div className={styles.ProcessTerminalInput}>
-            <input type={'text'} defaultValue={''} placeholder="Write your answer" />
-            <br />
-            <input type={'submit'} value={'Send'} />
-        </div>
+        <div
+            className={styles.ProcessTerminalInput}
+            dangerouslySetInnerHTML={{ __html: value }}
+            ref={(element) => {
+                if (!element) {
+                    return;
+                }
+
+                for (const formElement of Array.from(element.querySelectorAll('form'))) {
+                    formElement.addEventListener('submit', async (event) => {
+                        event.preventDefault();
+
+                        const formData = new FormData(formElement);
+                        const data = Object.fromEntries(formData);
+
+                        // !!! Why 2x
+                        await process.recieveInput(data as InputData);
+                    });
+                }
+            }}
+        ></div>
     );
 }
