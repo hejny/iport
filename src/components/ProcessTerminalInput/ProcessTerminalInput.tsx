@@ -39,6 +39,7 @@ export function ProcessTerminalInput(props: ProcessTerminalInputProps) {
                         const data = Object.fromEntries(formData);
 
                         await process.recieveInput(data as InputData);
+                        formElement.reset();
                     });
                 }
             }}

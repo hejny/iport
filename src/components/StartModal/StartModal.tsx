@@ -35,6 +35,8 @@ export function StartModal(props: StartModalProps) {
                         url.hash = '#' + processId.toString();
 
                         window.open(url, processId.toString());
+
+                        formElement.reset();
                     });
                 }
             }}
