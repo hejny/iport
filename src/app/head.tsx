@@ -1,9 +1,9 @@
 export default function Head() {
     return (
         <>
-            <title>@@@</title>
+            <title>iPort Admin tool</title>
             <meta content="width=device-width, initial-scale=1" name="viewport" />
-            <meta name="description" content="@@@" />
+            {/* TODO: <meta name="description" content="..." /> */}
             {/* TODO [🚛] <link rel="icon" href="/a.ico" />*/}
         </>
     );
