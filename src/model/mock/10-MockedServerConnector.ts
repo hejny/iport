@@ -39,8 +39,12 @@ export class MockedServerConnector implements ServerConnector {
         
     `);
 
-    public async recieveNewProcessOptions(input: InputData): Promise<void> {
+    public async recieveNewProcessOptions(input: InputData): Promise<ProcessId> {
         // !!! Make active and replay message + color into the logs
+
+        console.log({ input });
+
+        return 'a';
     }
 
     public get processList() {
