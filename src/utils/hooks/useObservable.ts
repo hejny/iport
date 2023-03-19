@@ -1,6 +1,11 @@
 import React from 'react';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { IUseLoadableResult, IUseLoadableResultError, IUseLoadableResultPending, IUseLoadableResultStatus } from './useLoadable';
+import {
+    IUseLoadableResult,
+    IUseLoadableResultError,
+    IUseLoadableResultPending,
+    IUseLoadableResultStatus,
+} from './useLoadable';
 
 /**
  * React hook that returns current value of given Observable.
@@ -33,6 +38,7 @@ export function useObservable<TValue>(observable: Observable<TValue>): IUseLoada
     const [result, setResult] =
         React.useState/* <- TODO: Import and use just a useState */ <IUseLoadableResult<TValue>>(initialValue);
 
+    // !!! This effect is causing problems with looooot of Warning: Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either
     React.useEffect(
         /* <- TODO: Import and use just a useEffect */ () => {
             const subscription = observable.subscribe({
