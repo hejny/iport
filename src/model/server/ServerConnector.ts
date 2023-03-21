@@ -4,9 +4,20 @@ import { forTime } from 'waitasecond';
 import { IServerConnector } from '../interfaces/IServerConnector';
 import { IServerProcess } from '../interfaces/IServerProcess';
 import { IInputData, IProcessId } from '../interfaces/common';
+import SocketIO from 'socket.io-client';
 
 export class ServerConnector implements IServerConnector {
-    public constructor(public readonly apiUrl: URL) {}
+
+
+    private socketClient: SocketIO.Socket;
+
+
+    public constructor(public readonly apiUrl: URL) {
+
+        this.socketClient = SocketIO.io(this.apiUrl.href, {
+            transports: ['websocket', 'polling'],
+        });
+    }
 
     public getProcessById(processId: IProcessId) {}
 
