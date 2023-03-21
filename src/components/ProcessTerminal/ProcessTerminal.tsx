@@ -1,11 +1,11 @@
-import { Process } from '@/model/interfaces/20-Process';
+import { IProcess } from '@/model/interfaces/20-IProcess';
 import { checkServerHtml } from '@/model/utils/checkServerHtml';
 import { useObservable } from '@/utils/hooks/useObservable';
 import { ProcessTerminalInput } from '../ProcessTerminalInput/ProcessTerminalInput';
 import styles from './ProcessTerminal.module.css';
 
 interface ProcessTerminalProps {
-    process: Process;
+    process: IProcess;
     isTerminalPinned: boolean;
 }
 

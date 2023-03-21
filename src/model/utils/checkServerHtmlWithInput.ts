@@ -1,6 +1,6 @@
 import spaceTrim from 'spacetrim';
 import { string_html } from '../../utils/typeAliases';
-import { ServerHtmlWithInput } from '../interfaces/00-simple';
+import { IServerHtmlWithInput } from '../interfaces/00-simple';
 
 /**
  * Check that string is satisfactory ServerHtmlWithInput
@@ -9,7 +9,7 @@ import { ServerHtmlWithInput } from '../interfaces/00-simple';
  * @returns ServerHtmlWithInput or throws error
  */
 
-export function checkServerHtmlWithInput(html: string_html): ServerHtmlWithInput {
+export function checkServerHtmlWithInput(html: string_html): IServerHtmlWithInput {
     // TODO: We can do some checking here
-    return spaceTrim(html) as ServerHtmlWithInput;
+    return spaceTrim(html) as IServerHtmlWithInput;
 }

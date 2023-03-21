@@ -1,10 +1,10 @@
-import { InputData } from '@/model/interfaces/00-simple';
-import { Process } from '@/model/interfaces/20-Process';
+import { IInputData } from '@/model/interfaces/00-simple';
+import { IProcess } from '@/model/interfaces/20-IProcess';
 import { useObservable } from '@/utils/hooks/useObservable';
 import styles from './ProcessTerminalInput.module.css';
 
 interface ProcessTerminalInputProps {
-    process: Process;
+    process: IProcess;
 }
 
 export function ProcessTerminalInput(props: ProcessTerminalInputProps) {
@@ -39,7 +39,7 @@ export function ProcessTerminalInput(props: ProcessTerminalInputProps) {
                         const data = Object.fromEntries(formData);
 
                         try {
-                            await process.recieveInput(data as InputData);
+                            await process.recieveInput(data as IInputData);
                             formElement.reset();
                         } catch (error) {
                             if (!(error instanceof Error)) {

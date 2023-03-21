@@ -1,18 +1,18 @@
 import { faker } from '@faker-js/faker';
 import { BehaviorSubject } from 'rxjs';
 import { forTime } from 'waitasecond';
-import { InputData, ProcessId } from '../interfaces/00-simple';
-import { ServerConnector } from '../interfaces/10-ServerConnector';
-import { Process } from '../interfaces/20-Process';
+import { IInputData, IProcessId } from '../interfaces/00-simple';
+import { IServerConnector } from '../interfaces/10-IServerConnector';
+import { IProcess } from '../interfaces/20-IProcess';
 import { checkServerHtmlWithInput } from '../utils/checkServerHtmlWithInput';
 import { MockedProcess } from './20-MockedProcess';
 
-export class MockedServerConnector implements ServerConnector {
-    public constructor(public readonly processId: ProcessId) {
+export class MockedServerConnector implements IServerConnector {
+    public constructor(public readonly processId: IProcessId) {
         /* not await */ this.startMockedProcesses();
     }
 
-    public getProcessById(processId: ProcessId) {
+    public getProcessById(processId: IProcessId) {
         return new MockedProcess(processId);
     }
 
@@ -47,15 +47,15 @@ export class MockedServerConnector implements ServerConnector {
         
     `);
 
-    public async recieveNewProcessOptions(input: InputData): Promise<ProcessId> {
+    public async recieveNewProcessOptions(input: IInputData): Promise<IProcessId> {
         // !!! Make processTitle and processId different
         this.newProcess(new MockedProcess(input.processTitle));
         return input.processId;
     }
 
-    public processes = new BehaviorSubject<Array<Process>>([]);
+    public processes = new BehaviorSubject<Array<IProcess>>([]);
 
-    private newProcess(process: Process) {
+    private newProcess(process: IProcess) {
         // TODO: Maybe recycle old array object and just push into it
         this.processes.next([...this.processes.value, process]);
     }

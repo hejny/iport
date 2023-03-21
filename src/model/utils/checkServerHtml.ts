@@ -1,6 +1,6 @@
 import spaceTrim from 'spacetrim';
 import { string_html } from '../../utils/typeAliases';
-import { ServerHtml } from '../interfaces/00-simple';
+import { IServerHtml } from '../interfaces/00-simple';
 
 /**
  * Check that string is satisfactory ServerHtml
@@ -9,7 +9,7 @@ import { ServerHtml } from '../interfaces/00-simple';
  * @returns ServerHtml or throws error
  */
 
-export function checkServerHtml(html: string_html): ServerHtml {
+export function checkServerHtml(html: string_html): IServerHtml {
     // TODO: We can do some checking here
-    return spaceTrim(html) as ServerHtml;
+    return spaceTrim(html) as IServerHtml;
 }

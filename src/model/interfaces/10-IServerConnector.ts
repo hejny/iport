@@ -1,16 +1,16 @@
 import { Observable } from 'rxjs';
-import { InputData, ProcessId, ServerHtmlWithInput } from './00-simple';
-import { Process } from './20-Process';
+import { IInputData, IProcessId, IServerHtmlWithInput } from './00-simple';
+import { IProcess } from './20-IProcess';
 
 /**
  * Object that represents connection to server which controlls the app
  */
-export interface ServerConnector {
+export interface IServerConnector {
     /**
      * Available running processes
      * Every update(next) of the observable will fully update the process list.
      */
-    processes: Observable<Array<Process>>;
+    processes: Observable<Array<IProcess>>;
 
     /**
      * Get any process by its ID
@@ -18,13 +18,13 @@ export interface ServerConnector {
      * @param processId - ID of the process to get
      * @returns Process object with the specified ID
      */
-    getProcessById(processId: ProcessId): Process;
+    getProcessById(processId: IProcessId): IProcess;
 
     /**
      * Object containing HTML from the server with input data for creating a new process.
      * The HTML may be used as a form for inputting data for a new process.
      */
-    newProcessOptions: ServerHtmlWithInput;
+    newProcessOptions: IServerHtmlWithInput;
 
     /**
      * Sends input data for creating a new process to the server and returns the ID of the new process.
@@ -34,5 +34,5 @@ export interface ServerConnector {
      * @param input - Object containing input data
      * @returns Promise that resolves with the ID of the new process
      */
-    recieveNewProcessOptions(input: InputData): Promise<ProcessId>;
+    recieveNewProcessOptions(input: IInputData): Promise<IProcessId>;
 }

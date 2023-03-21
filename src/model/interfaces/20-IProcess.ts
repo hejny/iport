@@ -1,14 +1,14 @@
 import { Observable } from 'rxjs';
-import { InputData, ProcessId, ServerHtml, ServerHtmlWithInput } from './00-simple';
+import { IInputData, IProcessId, IServerHtml, IServerHtmlWithInput } from './00-simple';
 
 /**
  * Object that represents one running process on the server
  */
-export interface Process {
+export interface IProcess {
     /**
      * Any unique identification of the process
      */
-    processId: ProcessId;
+    processId: IProcessId;
 
     /**
      * Title of the process
@@ -29,19 +29,19 @@ export interface Process {
      * > </a>
      *
      */
-    menuItem: ServerHtml;
+    menuItem: IServerHtml;
 
     /**
      * Observable that emits an array of HTML strings representing incoming logs.
      *
      * Note: Each item is NOT ONE new row BUT ALL loges together in array
      */
-    logs: Observable<Array<ServerHtml>>;
+    logs: Observable<Array<IServerHtml>>;
 
     /**
      * Observable that emits HTML with input data for the process.
      */
-    input: Observable<ServerHtmlWithInput>;
+    input: Observable<IServerHtmlWithInput>;
 
     /**
      * Sends input data to the server.
@@ -49,5 +49,5 @@ export interface Process {
      *
      * @param input - Object containing input data
      */
-    recieveInput(input: InputData): Promise<void>;
+    recieveInput(input: IInputData): Promise<void>;
 }

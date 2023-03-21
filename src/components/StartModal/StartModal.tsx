@@ -1,9 +1,9 @@
-import { InputData } from '@/model/interfaces/00-simple';
-import { ServerConnector } from '@/model/interfaces/10-ServerConnector';
+import { IInputData } from '@/model/interfaces/00-simple';
+import { IServerConnector } from '@/model/interfaces/10-IServerConnector';
 import styles from './StartModal.module.css';
 
 interface StartModalProps {
-    serverConnector: ServerConnector;
+    serverConnector: IServerConnector;
 }
 
 export function StartModal(props: StartModalProps) {
@@ -30,7 +30,7 @@ export function StartModal(props: StartModalProps) {
                         const data = Object.fromEntries(formData);
 
                         try {
-                            const processId = await serverConnector.recieveNewProcessOptions(data as InputData);
+                            const processId = await serverConnector.recieveNewProcessOptions(data as IInputData);
 
                             const url = new URL(window.location.href);
                             url.hash = '#' + processId.toString();

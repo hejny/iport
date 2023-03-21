@@ -1,9 +1,9 @@
-import { ServerConnector } from '@/model/interfaces/10-ServerConnector';
+import { IServerConnector } from '@/model/interfaces/10-IServerConnector';
 import { useObservable } from '@/utils/hooks/useObservable';
 import styles from './ProcessesList.module.css';
 
 interface ProcessesListProps {
-    serverConnector: ServerConnector;
+    serverConnector: IServerConnector;
 }
 
 export function ProcessesList(props: ProcessesListProps) {

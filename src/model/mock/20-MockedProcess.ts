@@ -2,13 +2,13 @@ import { faker } from '@faker-js/faker';
 import moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
 import { forTime } from 'waitasecond';
-import { InputData, ProcessId, ServerHtml } from '../interfaces/00-simple';
-import { Process } from '../interfaces/20-Process';
+import { IInputData, IProcessId, IServerHtml } from '../interfaces/00-simple';
+import { IProcess } from '../interfaces/20-IProcess';
 import { checkServerHtml } from '../utils/checkServerHtml';
 import { checkServerHtmlWithInput } from '../utils/checkServerHtmlWithInput';
 
-export class MockedProcess implements Process {
-    public constructor(public readonly processId: ProcessId) {
+export class MockedProcess implements IProcess {
+    public constructor(public readonly processId: IProcessId) {
         /* not await */ this.startMockedLogs();
     }
 
@@ -29,7 +29,7 @@ export class MockedProcess implements Process {
         );
     }
 
-    public async recieveInput(input: InputData): Promise<void> {
+    public async recieveInput(input: IInputData): Promise<void> {
         if (input.message.trim() === '') {
             throw new Error(`You need to specify a message`);
         }
@@ -49,10 +49,10 @@ export class MockedProcess implements Process {
         );
     }
 
-    public logs = new BehaviorSubject<Array<ServerHtml>>([]);
+    public logs = new BehaviorSubject<Array<IServerHtml>>([]);
 
     private logOrder = 0;
-    private newLog(log: ServerHtml) {
+    private newLog(log: IServerHtml) {
         // TODO: Maybe logs in reverse - most recent logs are more important and maybe it is optimal to have them as first items in the array
         // TODO: Maybe recycle old array object and just push into it
         this.logs.next([...this.logs.value, log]);
