@@ -20,16 +20,16 @@ export interface ServerConnector {
     getProcessById(processId: ProcessId): Process;
 
     /**
-     * !!!
+     * @@@
      */
     newProcessOptions: ServerHtmlWithInput;
 
     /**
-     * !!!
+     * @@@
      *
      * If the recive fails it throws an Error (rejects the promise)
      *
-     * !!! param + return
+     * @@@ param + return
      */
     recieveNewProcessOptions(input: InputData): Promise<ProcessId>;
 }

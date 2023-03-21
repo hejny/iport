@@ -20,13 +20,13 @@ import { string_html } from '../../utils/typeAliases';
 export type ServerHtml = string_html & { __type: 'ServerHtml' };
 
 /**
- * !!!
+ * @@@
  */
 export type ServerHtmlWithInput = ServerHtml & { __type: 'ServerHtmlWithInput' };
 
 /**
  *
- * Note: There is already build-in type for html form data but !!!
+ * Note: There is already build-in type for html form data but @@@
  */
 export type InputData = Record<string, string>;
 

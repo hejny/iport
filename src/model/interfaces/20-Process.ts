@@ -33,18 +33,18 @@ export interface Process {
 
     /**
      * Incomming logs
-     * !!! Each item will be shown in a new row
-     * !!! Maybe change to Behaviour subject ACRY + ACRY use only BehaviourSubject
+     * @@@ Each item will be shown in a new row
+     * @@@ Maybe change to Behaviour subject ACRY + ACRY use only BehaviourSubject
      */
     logs: Observable<Array<ServerHtml>>;
 
     /**
-     * !!!
+     * @@@
      */
     input: Observable<ServerHtmlWithInput>;
 
     /**
-     * !!!
+     * @@@
      *
      * If the recive fails it throws an Error (rejects the promise)
      */
