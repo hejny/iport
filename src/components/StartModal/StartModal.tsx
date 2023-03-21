@@ -12,7 +12,7 @@ export function StartModal(props: StartModalProps) {
     return (
         <div
             className={styles.StartModal}
-            dangerouslySetInnerHTML={{ __html: serverConnector.newProcessOptions }}
+            dangerouslySetInnerHTML={{ __html: serverConnector.getNewProcessOptionsForm }}
             ref={(element) => {
                 if (!element) {
                     return;

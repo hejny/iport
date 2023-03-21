@@ -10,7 +10,7 @@ interface ProcessTerminalInputProps {
 export function ProcessTerminalInput(props: ProcessTerminalInputProps) {
     const { process } = props;
 
-    const { value } = useObservable(process.input);
+    const { value } = useObservable(process.inputForm);
 
     if (!value) {
         return <></>;

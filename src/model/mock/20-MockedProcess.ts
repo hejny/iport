@@ -183,7 +183,7 @@ export class MockedProcess implements IProcess {
         }
     }
 
-    input = new BehaviorSubject(
+    public inputForm = new BehaviorSubject(
         checkServerHtmlWithInput(`
             <form>
                 <label>

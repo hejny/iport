@@ -24,7 +24,7 @@ export interface IServerConnector {
      * Object containing HTML from the server with input data for creating a new process.
      * The HTML may be used as a form for inputting data for a new process.
      */
-    newProcessOptions: IServerHtmlWithInput;
+    getNewProcessOptionsForm(): IServerHtmlWithInput;
 
     /**
      * Sends input data for creating a new process to the server and returns the ID of the new process.

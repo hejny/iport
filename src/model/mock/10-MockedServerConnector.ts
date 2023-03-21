@@ -8,7 +8,7 @@ import { checkServerHtmlWithInput } from '../utils/checkServerHtmlWithInput';
 import { MockedProcess } from './20-MockedProcess';
 
 export class MockedServerConnector implements IServerConnector {
-    public constructor(public readonly processId: IProcessId) {
+    public constructor() {
         /* not await */ this.startMockedProcesses();
     }
 
@@ -16,36 +16,38 @@ export class MockedServerConnector implements IServerConnector {
         return new MockedProcess(processId);
     }
 
-    public newProcessOptions = checkServerHtmlWithInput(`
-    
-        <form>
-            <label>
-                Start process ID:
-                <input type="text" name="processId"/>
-            </label>
-
-            <label>
-                Start process named:
-                <input type="text" name="processTitle"/>
-            </label>
-
-            <input type="submit" value="Start"/>
-            
-        </form>
-
-        <form>
-            <input type="hidden" name="processId" value="foo"/>
-            <input type="hidden" name="processTitle" value="Foo"/>
-            <input type="submit" value="Start foo"/>
-        </form>
-
-        <form>
-            <input type="hidden" name="processId" value="bar"/>
-            <input type="hidden" name="processTitle" value="Bar"/>
-            <input type="submit" value="Start bar"/>
-        </form>
+    public getNewProcessOptionsForm() {
+        return checkServerHtmlWithInput(`
         
-    `);
+            <form>
+                <label>
+                    Start process ID:
+                    <input type="text" name="processId"/>
+                </label>
+
+                <label>
+                    Start process named:
+                    <input type="text" name="processTitle"/>
+                </label>
+
+                <input type="submit" value="Start"/>
+                
+            </form>
+
+            <form>
+                <input type="hidden" name="processId" value="foo"/>
+                <input type="hidden" name="processTitle" value="Foo"/>
+                <input type="submit" value="Start foo"/>
+            </form>
+
+            <form>
+                <input type="hidden" name="processId" value="bar"/>
+                <input type="hidden" name="processTitle" value="Bar"/>
+                <input type="submit" value="Start bar"/>
+            </form>
+            
+        `);
+    }
 
     public async recieveNewProcessOptions(input: IInputData): Promise<IProcessId> {
         // !!! Make processTitle and processId different
@@ -60,7 +62,7 @@ export class MockedServerConnector implements IServerConnector {
         this.processes.next([...this.processes.value, process]);
     }
 
-    public async startMockedProcesses() {
+    private async startMockedProcesses() {
         this.newProcess(new MockedProcess(`first`));
 
         while (true) {

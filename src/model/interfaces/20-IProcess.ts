@@ -41,7 +41,7 @@ export interface IProcess {
     /**
      * Observable that emits HTML with input data for the process.
      */
-    input: Observable<IServerHtmlWithInput>;
+    inputForm: Observable<IServerHtmlWithInput>;
 
     /**
      * Sends input data to the server.
