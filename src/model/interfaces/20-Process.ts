@@ -32,21 +32,22 @@ export interface Process {
     menuItem: ServerHtml;
 
     /**
-     * Incomming logs
-     * @@@ Each item will be shown in a new row
-     * @@@ Maybe change to Behaviour subject ACRY + ACRY use only BehaviourSubject
+     * Observable that emits an array of HTML strings representing incoming logs.
+     *
+     * Note: Each item is NOT ONE new row BUT ALL loges together in array
      */
     logs: Observable<Array<ServerHtml>>;
 
     /**
-     * @@@
+     * Observable that emits HTML with input data for the process.
      */
     input: Observable<ServerHtmlWithInput>;
 
     /**
-     * @@@
+     * Sends input data to the server.
+     * If the receive fails, it throws an Error (rejects the promise).
      *
-     * If the recive fails it throws an Error (rejects the promise)
+     * @param input - Object containing input data
      */
     recieveInput(input: InputData): Promise<void>;
 }
