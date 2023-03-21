@@ -1,4 +1,4 @@
-import { InputData } from '@/model/interfaces/00-common';
+import { InputData } from '@/model/interfaces/00-simple';
 import { ServerConnector } from '@/model/interfaces/10-ServerConnector';
 import styles from './StartModal.module.css';
 

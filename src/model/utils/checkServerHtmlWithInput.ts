@@ -1,6 +1,6 @@
 import spaceTrim from 'spacetrim';
 import { string_html } from '../../utils/typeAliases';
-import { ServerHtmlWithInput } from '../interfaces/00-common';
+import { ServerHtmlWithInput } from '../interfaces/00-simple';
 
 /**
  * Check that string is satisfactory ServerHtmlWithInput

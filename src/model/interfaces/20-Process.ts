@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { InputData, ProcessId, ServerHtml, ServerHtmlWithInput } from './00-common';
+import { InputData, ProcessId, ServerHtml, ServerHtmlWithInput } from './00-simple';
 
 /**
  * Object that represents one running process on the server

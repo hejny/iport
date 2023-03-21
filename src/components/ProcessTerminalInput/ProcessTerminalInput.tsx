@@ -1,4 +1,4 @@
-import { InputData } from '@/model/interfaces/00-common';
+import { InputData } from '@/model/interfaces/00-simple';
 import { Process } from '@/model/interfaces/20-Process';
 import { useObservable } from '@/utils/hooks/useObservable';
 import styles from './ProcessTerminalInput.module.css';

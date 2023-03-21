@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 import moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
 import { forTime } from 'waitasecond';
-import { InputData, ProcessId, ServerHtml } from '../interfaces/00-common';
+import { InputData, ProcessId, ServerHtml } from '../interfaces/00-simple';
 import { Process } from '../interfaces/20-Process';
 import { checkServerHtml } from '../utils/checkServerHtml';
 import { checkServerHtmlWithInput } from '../utils/checkServerHtmlWithInput';
