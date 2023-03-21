@@ -9,13 +9,13 @@ interface ProcessesListProps {
 export function ProcessesList(props: ProcessesListProps) {
     const { serverConnector } = props;
 
-    let { value: processList } = useObservable(serverConnector.processList);
+    let { value: processes } = useObservable(serverConnector.processes);
 
     return (
         <div className={styles.ProcessesList}>
             <h2>Seznam procesů: </h2>
             <ul>
-                {(processList || []).map((process) => (
+                {(processes || []).map((process) => (
                     <li key={process.processId} dangerouslySetInnerHTML={{ __html: process.menuItem }} />
                 ))}
 

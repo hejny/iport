@@ -53,11 +53,11 @@ export class MockedServerConnector implements ServerConnector {
         return input.processId;
     }
 
-    public processList = new BehaviorSubject<Array<Process>>([]);
+    public processes = new BehaviorSubject<Array<Process>>([]);
 
     private newProcess(process: Process) {
         // TODO: Maybe recycle old array object and just push into it
-        this.processList.next([...this.processList.value, process]);
+        this.processes.next([...this.processes.value, process]);
     }
 
     public async startMockedProcesses() {

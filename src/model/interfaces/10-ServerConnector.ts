@@ -9,10 +9,8 @@ export interface ServerConnector {
     /**
      * Available running processes
      * Every update(next) of the observable will fully update the process list.
-     *
-     * !!! Rename to processes
      */
-    processList: Observable<Array<Process>>;
+    processes: Observable<Array<Process>>;
 
     /**
      * Get any process by its ID

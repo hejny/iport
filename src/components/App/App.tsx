@@ -12,7 +12,7 @@ import styles from './App.module.css';
 interface AppProps {}
 
 export function App(props: AppProps) {
-    const [isProcessListVisible, toggleProcessListVisible] = useToggle(true);
+    const [isprocesses Visible, toggleprocesses Visible] = useToggle(true);
     const [isTerminalPinned, toggleTerminalPinned] = useToggle(false);
 
     const processId = useProcessId();
@@ -39,10 +39,10 @@ export function App(props: AppProps) {
         <main
             className={classNames(
                 styles.App,
-                styles[isProcessListVisible ? 'with-process-list' : 'without-process-list'],
+                styles[isprocesses Visible ? 'with-process-list' : 'without-process-list'],
             )}
         >
-            {isProcessListVisible && (
+            {isprocesses Visible && (
                 <nav className={styles.ProcessesList}>
                     <ProcessesList {...{ serverConnector }} />
                 </nav>
@@ -56,7 +56,7 @@ export function App(props: AppProps) {
             </main>
             <footer className={styles.BottomToolbar}>
                 <BottomToolbar
-                    {...{ isProcessListVisible, toggleProcessListVisible, isTerminalPinned, toggleTerminalPinned }}
+                    {...{ isprocesses Visible, toggleprocesses Visible, isTerminalPinned, toggleTerminalPinned }}
                 />
             </footer>
         </main>
