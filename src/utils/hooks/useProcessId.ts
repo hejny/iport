@@ -1,4 +1,4 @@
-import { IProcessId } from '@/model/interfaces/00-simple';
+import { IProcessId } from '@/model/interfaces/common';
 
 export function useProcessId(): null | IProcessId {
     if (typeof window === 'undefined') {

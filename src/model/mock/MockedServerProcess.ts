@@ -2,12 +2,12 @@ import { faker } from '@faker-js/faker';
 import moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
 import { forTime } from 'waitasecond';
-import { IInputData, IProcessId, IServerHtml } from '../interfaces/00-simple';
-import { IProcess } from '../interfaces/20-IProcess';
+import { IServerProcess } from '../interfaces/IServerProcess';
+import { IInputData, IProcessId, IServerHtml } from '../interfaces/common';
 import { checkServerHtml } from '../utils/checkServerHtml';
 import { checkServerHtmlWithInput } from '../utils/checkServerHtmlWithInput';
 
-export class MockedProcess implements IProcess {
+export class MockedServerProcess implements IServerProcess {
     public constructor(public readonly processId: IProcessId) {
         /* not await */ this.startMockedLogs();
     }

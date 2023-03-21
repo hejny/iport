@@ -1,19 +1,19 @@
-import { IProcess } from '@/model/interfaces/20-IProcess';
+import { IServerProcess } from '@/model/interfaces/IServerProcess';
 import { checkServerHtml } from '@/model/utils/checkServerHtml';
 import { useObservable } from '@/utils/hooks/useObservable';
 import { ProcessTerminalInput } from '../ProcessTerminalInput/ProcessTerminalInput';
 import styles from './ProcessTerminal.module.css';
 
 interface ProcessTerminalProps {
-    process: IProcess;
+    serverProcess: IServerProcess;
     isTerminalPinned: boolean;
 }
 
 export function ProcessTerminal(props: ProcessTerminalProps) {
-    const { process, isTerminalPinned } = props;
+    const { serverProcess, isTerminalPinned } = props;
 
     // TODO: Probbably make some util/hook for this and separate component from aggregation logic
-    let { value: logs } = useObservable(process.logs);
+    let { value: logs } = useObservable(serverProcess.logs);
 
     // console.log('ProcessTerminal', logs);
 
@@ -47,7 +47,7 @@ export function ProcessTerminal(props: ProcessTerminalProps) {
             </div>
             <div className={styles.input}>
                 <div className={styles.inner}>
-                    <ProcessTerminalInput {...{ process }} />
+                    <ProcessTerminalInput {...{ serverProcess }} />
                 </div>
             </div>
         </div>

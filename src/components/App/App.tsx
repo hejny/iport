@@ -1,4 +1,4 @@
-import { MockedServerConnector } from '@/model/mock/10-MockedServerConnector';
+import { MockedServerConnector } from '@/model/mock/MockedServerConnector';
 import { classNames } from '@/utils/classNames';
 import { useProcessId } from '@/utils/hooks/useProcessId';
 import { useEffect, useMemo } from 'react';
@@ -22,17 +22,17 @@ export function App(props: AppProps) {
         // !!! return new ServerConnector(SERVER_URL);
     }, []);
 
-    const process = !processId ? null : serverConnector.getProcessById(processId);
+    const serverProcess = !processId ? null : serverConnector.getProcessById(processId);
 
     useEffect(() => {
         // TODO: Do outside of component probbably IN custom hook
         // TODO: changeFavicon(processStatusFaviconUrl);
 
-        if (!process) {
+        if (!serverProcess) {
             return;
         }
 
-        window.document.title = process.processTitle;
+        window.document.title = serverProcess.processTitle;
     });
 
     return (
@@ -48,10 +48,10 @@ export function App(props: AppProps) {
                 </nav>
             )}
             <main className={styles.ProcessTerminal}>
-                {!process ? (
+                {!serverProcess ? (
                     <StartModal {...{ serverConnector }} />
                 ) : (
-                    <ProcessTerminal {...{ process, isTerminalPinned }} />
+                    <ProcessTerminal {...{ serverProcess, isTerminalPinned }} />
                 )}
             </main>
             <footer className={styles.BottomToolbar}>

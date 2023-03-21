@@ -1,10 +1,9 @@
 import { faker } from '@faker-js/faker';
 import { BehaviorSubject } from 'rxjs';
 import { forTime } from 'waitasecond';
-import { IInputData, IProcessId } from '../interfaces/00-simple';
-import { IServerConnector } from '../interfaces/10-IServerConnector';
-import { IProcess } from '../interfaces/20-IProcess';
-import { Process } from './20-Process';
+import { IServerConnector } from '../interfaces/IServerConnector';
+import { IServerProcess } from '../interfaces/IServerProcess';
+import { IInputData, IProcessId } from '../interfaces/common';
 
 export class ServerConnector implements IServerConnector {
     public constructor(public readonly apiUrl: URL) {}
@@ -15,9 +14,9 @@ export class ServerConnector implements IServerConnector {
 
     public async recieveNewProcessOptions(input: IInputData): Promise<IProcessId> {}
 
-    public processes = new BehaviorSubject<Array<IProcess>>([]);
+    public processes = new BehaviorSubject<Array<IServerProcess>>([]);
 
-    private newProcess(process: IProcess) {
+    private newProcess(process: IServerProcess) {
         // TODO: Maybe recycle old array object and just push into it
         this.processes.next([...this.processes.value, process]);
     }

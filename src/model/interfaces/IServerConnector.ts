@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
-import { IInputData, IProcessId, IServerHtmlWithInput } from './00-simple';
-import { IProcess } from './20-IProcess';
+import { IServerProcess } from './IServerProcess';
+import { IInputData, IProcessId, IServerHtmlWithInput } from './common';
 
 /**
  * Object that represents connection to server which controlls the app
@@ -10,7 +10,7 @@ export interface IServerConnector {
      * Available running processes
      * Every update(next) of the observable will fully update the process list.
      */
-    processes: Observable<Array<IProcess>>;
+    processes: Observable<Array<IServerProcess>>;
 
     /**
      * Get any process by its ID
@@ -18,7 +18,7 @@ export interface IServerConnector {
      * @param processId - ID of the process to get
      * @returns Process object with the specified ID
      */
-    getProcessById(processId: IProcessId): IProcess;
+    getProcessById(processId: IProcessId): IServerProcess;
 
     /**
      * Object containing HTML from the server with input data for creating a new process.

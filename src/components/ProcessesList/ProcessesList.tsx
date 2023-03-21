@@ -1,4 +1,4 @@
-import { IServerConnector } from '@/model/interfaces/10-IServerConnector';
+import { IServerConnector } from '@/model/interfaces/IServerConnector';
 import { useObservable } from '@/utils/hooks/useObservable';
 import styles from './ProcessesList.module.css';
 

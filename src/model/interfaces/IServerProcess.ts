@@ -1,10 +1,10 @@
 import { Observable } from 'rxjs';
-import { IInputData, IProcessId, IServerHtml, IServerHtmlWithInput } from './00-simple';
+import { IInputData, IProcessId, IServerHtml, IServerHtmlWithInput } from './common';
 
 /**
  * Object that represents one running process on the server
  */
-export interface IProcess {
+export interface IServerProcess {
     /**
      * Any unique identification of the process
      */

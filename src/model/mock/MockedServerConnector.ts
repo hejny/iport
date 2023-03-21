@@ -1,11 +1,11 @@
 import { faker } from '@faker-js/faker';
 import { BehaviorSubject } from 'rxjs';
 import { forTime } from 'waitasecond';
-import { IInputData, IProcessId } from '../interfaces/00-simple';
-import { IServerConnector } from '../interfaces/10-IServerConnector';
-import { IProcess } from '../interfaces/20-IProcess';
+import { IServerConnector } from '../interfaces/IServerConnector';
+import { IServerProcess } from '../interfaces/IServerProcess';
+import { IInputData, IProcessId } from '../interfaces/common';
 import { checkServerHtmlWithInput } from '../utils/checkServerHtmlWithInput';
-import { MockedProcess } from './20-MockedProcess';
+import { MockedServerProcess } from './MockedServerProcess';
 
 export class MockedServerConnector implements IServerConnector {
     public constructor() {
@@ -13,7 +13,7 @@ export class MockedServerConnector implements IServerConnector {
     }
 
     public getProcessById(processId: IProcessId) {
-        return new MockedProcess(processId);
+        return new MockedServerProcess(processId);
     }
 
     public getNewProcessOptionsForm() {
@@ -51,24 +51,24 @@ export class MockedServerConnector implements IServerConnector {
 
     public async recieveNewProcessOptions(input: IInputData): Promise<IProcessId> {
         // !!! Make processTitle and processId different
-        this.newProcess(new MockedProcess(input.processTitle));
+        this.newProcess(new MockedServerProcess(input.processTitle));
         return input.processId;
     }
 
-    public processes = new BehaviorSubject<Array<IProcess>>([]);
+    public processes = new BehaviorSubject<Array<IServerProcess>>([]);
 
-    private newProcess(process: IProcess) {
+    private newProcess(process: IServerProcess) {
         // TODO: Maybe recycle old array object and just push into it
         this.processes.next([...this.processes.value, process]);
     }
 
     private async startMockedProcesses() {
-        this.newProcess(new MockedProcess(`first`));
+        this.newProcess(new MockedServerProcess(`first`));
 
         while (true) {
             await forTime(1000 * (60 * Math.random()) /* <- TODO: Tweak time */);
 
-            this.newProcess(new MockedProcess(faker.hacker.verb()));
+            this.newProcess(new MockedServerProcess(faker.hacker.verb()));
         }
     }
 }

@@ -1,16 +1,16 @@
-import { IInputData } from '@/model/interfaces/00-simple';
-import { IProcess } from '@/model/interfaces/20-IProcess';
+import { IServerProcess } from '@/model/interfaces/IServerProcess';
+import { IInputData } from '@/model/interfaces/common';
 import { useObservable } from '@/utils/hooks/useObservable';
 import styles from './ProcessTerminalInput.module.css';
 
 interface ProcessTerminalInputProps {
-    process: IProcess;
+    serverProcess: IServerProcess;
 }
 
 export function ProcessTerminalInput(props: ProcessTerminalInputProps) {
-    const { process } = props;
+    const { serverProcess } = props;
 
-    const { value } = useObservable(process.inputForm);
+    const { value } = useObservable(serverProcess.inputForm);
 
     if (!value) {
         return <></>;
@@ -39,7 +39,7 @@ export function ProcessTerminalInput(props: ProcessTerminalInputProps) {
                         const data = Object.fromEntries(formData);
 
                         try {
-                            await process.recieveInput(data as IInputData);
+                            await serverProcess.recieveInput(data as IInputData);
                             formElement.reset();
                         } catch (error) {
                             if (!(error instanceof Error)) {
