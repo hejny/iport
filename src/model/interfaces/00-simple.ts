@@ -20,18 +20,25 @@ import { string_html } from '../../utils/typeAliases';
 export type ServerHtml = string_html & { __type: 'ServerHtml' };
 
 /**
- * @@@
+ * Type representing server HTML with input data.
+ *
+ * It has simmilar restrictions as ServerHtml but it can contain:
+ *
+ * - One or multiple <form> WITHOUT specified action or target
+ * - <input> with specified name inside a <form>
+ * - <textarea> with specified name inside a <form>
+ * - <select> with specified name inside a <form>
  */
 export type ServerHtmlWithInput = ServerHtml & { __type: 'ServerHtmlWithInput' };
 
 /**
- * @@@
+ * Object containing input data from <form> in ServerHtmlWithInput
  *
- * Note: There is already build-in type for html form data but @@@
+ * Note: There is already build-in type for html form data but we do not want to be dependent on it
  */
 export type InputData = Record<string, string>;
 
 /**
- * @@@
+ * Type representing process ID, which can be a string or a number.
  */
 export type ProcessId = string | number;
