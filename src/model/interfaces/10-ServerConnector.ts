@@ -14,20 +14,25 @@ export interface ServerConnector {
 
     /**
      * Get any process by its ID
+     *
+     * @param processId - ID of the process to get
+     * @returns Process object with the specified ID
      */
     getProcessById(processId: ProcessId): Process;
 
     /**
-     * @@@
+     * Object containing HTML from the server with input data for creating a new process.
+     * The HTML may be used as a form for inputting data for a new process.
      */
     newProcessOptions: ServerHtmlWithInput;
 
     /**
-     * @@@
+     * Sends input data for creating a new process to the server and returns the ID of the new process.
      *
-     * If the recive fails it throws an Error (rejects the promise)
+     * If the receive fails, it throws an Error (rejects the promise).
      *
-     * @@@ param + return
+     * @param input - Object containing input data
+     * @returns Promise that resolves with the ID of the new process
      */
     recieveNewProcessOptions(input: InputData): Promise<ProcessId>;
 }
