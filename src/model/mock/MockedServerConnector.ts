@@ -50,7 +50,7 @@ export class MockedServerConnector implements IServerConnector {
     }
 
     public async recieveNewProcessOptions(input: IInputData): Promise<IProcessId> {
-        // TODO: !!! Make processTitle and processId different
+        // !!! Make processTitle and processId different
         this.newProcess(new MockedServerProcess(input.processTitle));
         return input.processId;
     }

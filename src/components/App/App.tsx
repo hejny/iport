@@ -19,7 +19,7 @@ export function App(props: AppProps) {
     const serverConnector = useMemo(() => {
         // TODO: Pass it (probbably) via React context
         return new MockedServerConnector();
-        // TODO: !!! return new ServerConnector(SERVER_URL);
+        // !!! return new ServerConnector(SERVER_URL);
     }, []);
 
     const serverProcess = !processId ? null : serverConnector.getProcessById(processId);
