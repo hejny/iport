@@ -38,7 +38,7 @@ export function useObservable<TValue>(observable: Observable<TValue>): IUseLoada
     const [result, setResult] =
         React.useState/* <- TODO: Import and use just a useState */ <IUseLoadableResult<TValue>>(initialValue);
 
-    // !!! This effect is causing problems with looooot of Warning: Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either
+    // TODO: !!! This effect is causing problems with looooot of Warning: Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either
     React.useEffect(
         /* <- TODO: Import and use just a useEffect */ () => {
             const subscription = observable.subscribe({

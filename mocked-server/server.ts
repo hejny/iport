@@ -11,7 +11,7 @@ import { spaceTrim } from 'spacetrim';
 
 const PORT = 5001;
 
-// !!! Implement mocked server
+// TODO: !!! Implement mocked server
 
 const assetsBasePath = join(__dirname, '../../other/messages-api-samples/');
 const importAssetsPath = join(__dirname, '../../other/import/');
