@@ -1,5 +1,5 @@
-import { IServerConnector } from '@/model/interfaces/IServerConnector';
 import { IInputData } from '@/model/interfaces/common';
+import { IServerConnector } from '@/model/interfaces/IServerConnector';
 import styles from './StartModal.module.css';
 
 interface StartModalProps {

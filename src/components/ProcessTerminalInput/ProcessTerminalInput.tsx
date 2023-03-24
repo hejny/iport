@@ -1,5 +1,5 @@
-import { IServerProcess } from '@/model/interfaces/IServerProcess';
 import { IInputData } from '@/model/interfaces/common';
+import { IServerProcess } from '@/model/interfaces/IServerProcess';
 import { useObservable } from '@/utils/hooks/useObservable';
 import styles from './ProcessTerminalInput.module.css';
 

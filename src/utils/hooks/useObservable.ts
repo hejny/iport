@@ -4,7 +4,7 @@ import {
     IUseLoadableResult,
     IUseLoadableResultError,
     IUseLoadableResultPending,
-    IUseLoadableResultStatus,
+    IUseLoadableResultStatus
 } from './useLoadable';
 
 /**

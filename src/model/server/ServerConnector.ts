@@ -1,10 +1,10 @@
 import { faker } from '@faker-js/faker';
 import { BehaviorSubject } from 'rxjs';
+import SocketIO from 'socket.io-client';
 import { forTime } from 'waitasecond';
+import { IInputData, IProcessId } from '../interfaces/common';
 import { IServerConnector } from '../interfaces/IServerConnector';
 import { IServerProcess } from '../interfaces/IServerProcess';
-import { IInputData, IProcessId } from '../interfaces/common';
-import SocketIO from 'socket.io-client';
 
 export class ServerConnector implements IServerConnector {
 
