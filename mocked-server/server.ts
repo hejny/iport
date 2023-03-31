@@ -30,7 +30,7 @@ server.on('connection', (socketConnection: Socket) => {
                 <label>
                     Start process ID:
                     <input type="text" name="processId"/>
-                </label>
+                </label><br/>
                 <label>
                     Start process named:
                     <input type="text" name="processTitle"/>
