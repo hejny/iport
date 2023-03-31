@@ -3,22 +3,22 @@ import { BottomToolbarButton } from '../BottomToolbarButton/BottomToolbarButton'
 import styles from './BottomToolbar.module.css';
 
 interface BottomToolbarProps {
-    isprocesses Visible: boolean;
-    toggleprocesses Visible(): void;
+    isProcessesVisible: boolean;
+    toggleProcessesVisible(): void;
 
     isTerminalPinned: boolean;
     toggleTerminalPinned(): void;
 }
 
 export function BottomToolbar(props: BottomToolbarProps) {
-    const { isprocesses Visible, toggleprocesses Visible, isTerminalPinned, toggleTerminalPinned } = props;
+    const { isProcessesVisible, toggleProcessesVisible, isTerminalPinned, toggleTerminalPinned } = props;
 
     return (
         <div className={styles.BottomToolbar}>
             <div className={styles.floatLeft}>
                 <BottomToolbarButton
-                    direction={isprocesses Visible ? 'LEFT' : 'RIGHT'}
-                    onClick={toggleprocesses Visible}
+                    direction={isProcessesVisible ? 'LEFT' : 'RIGHT'}
+                    onClick={toggleProcessesVisible}
                 />
             </div>
 

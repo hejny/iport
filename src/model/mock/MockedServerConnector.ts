@@ -18,7 +18,7 @@ export class MockedServerConnector implements IServerConnector {
 
     public getNewProcessOptionsForm() {
         return checkServerHtmlWithInput(`
-        
+            
             <form>
                 <label>
                     Start process ID:
@@ -33,7 +33,7 @@ export class MockedServerConnector implements IServerConnector {
                 <input type="submit" value="Start"/>
                 
             </form>
-
+            
             <form>
                 <input type="hidden" name="processId" value="foo"/>
                 <input type="hidden" name="processTitle" value="Foo"/>
