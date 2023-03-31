@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
-import { IServerProcess } from '../interfaces/IServerProcess';
 import { IInputData, IProcessId, IServerHtml } from '../interfaces/common';
+import { IServerProcess } from '../interfaces/IServerProcess';
 import { checkServerHtmlWithInput } from '../utils/checkServerHtmlWithInput';
 
 export class ServerProcess implements IServerProcess {
