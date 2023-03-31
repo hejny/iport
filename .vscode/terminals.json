@@ -15,7 +15,7 @@
         {
             "name": "🌎🧪 Run mocked server",
             "cwd": "./mocked-server",
-            "command": "ts-node server.ts",
+            "command": "npx ts-node-dev server.ts",
             "focus": true
         },
         {

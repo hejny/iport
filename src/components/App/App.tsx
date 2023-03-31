@@ -1,11 +1,12 @@
-import { MockedServerConnector } from '@/model/mock/MockedServerConnector';
+import { ServerConnector } from '@/model/server/ServerConnector';
 import { classNames } from '@/utils/classNames';
 import { useProcessId } from '@/utils/hooks/useProcessId';
+import { SERVER_URL } from 'config';
 import { useEffect, useMemo } from 'react';
 import { useToggle } from '../../utils/hooks/useToggle';
 import { BottomToolbar } from '../BottomToolbar/BottomToolbar';
-import { ProcessesList } from '../ProcessesList/ProcessesList';
 import { ProcessTerminal } from '../ProcessTerminal/ProcessTerminal';
+import { ProcessesList } from '../ProcessesList/ProcessesList';
 import { StartModal } from '../StartModal/StartModal';
 import styles from './App.module.css';
 
@@ -18,8 +19,8 @@ export function App(props: AppProps) {
     const processId = useProcessId();
     const serverConnector = useMemo(() => {
         // TODO: Pass it (probbably) via React context
-        return new MockedServerConnector();
-        // !!! return new ServerConnector(SERVER_URL);
+        // return new MockedServerConnector();
+        return new ServerConnector(SERVER_URL);
     }, []);
 
     const serverProcess = !processId ? null : serverConnector.getProcessById(processId);

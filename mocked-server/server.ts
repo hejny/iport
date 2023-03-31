@@ -1,48 +1,67 @@
 #!/usr/bin/env ts-node
 
 import chalk from 'chalk';
-import cors from 'cors';
-import express from 'express';
-import glob from 'glob-promise';
-import { join, relative } from 'path';
-import serveIndex from 'serve-index';
-import serveStatic from 'serve-static';
+import { Socket, Server as SocketIoServer } from 'socket.io';
 import { spaceTrim } from 'spacetrim';
+import { Response_newProcess } from '../interfaces/_';
 
 const PORT = 5001;
 
-// !!! Implement mocked server
+const server = new SocketIoServer(PORT, {
+    cors: {
+        origin: '*',
+        methods: ['GET', 'POST'],
+    },
+});
 
-const assetsBasePath = join(__dirname, '../../other/messages-api-samples/');
-const importAssetsPath = join(__dirname, '../../other/import/');
+server.on('connection', (socketConnection: Socket) => {
+    console.log(chalk.green(`Client connected: ${socketConnection.id}`));
 
-const app = express();
+    const MOCKED_SERVER_HTML_MARK = `<span>This is a content from server for client ${socketConnection.id}:</span>`;
 
-app.use(cors());
-app.use(serveStatic(assetsBasePath, { index: ['index.html'] }));
-app.use('/import', serveStatic(importAssetsPath, { index: false }));
-app.use('/import', serveIndex(importAssetsPath, { icons: true }));
-app.use('/import/list', async (request, response) => {
-    response.send({
-        templates: (await glob(join(importAssetsPath, '/*/*')))
-            .filter((filename) => !/TODO(\.md)?$/.test(filename))
-            .filter((filename) => !/outdated/.test(filename))
-            .map((filename) => relative(importAssetsPath, filename).split('\\').join('/'))
-            .map((basename) => ({
-                title: basename.split('/').join(' ').split('_').join(' ').split('-').join(' ').split('.')[0],
-                url: `http://localhost:${PORT}/import/${basename}`,
-            })),
+    // Send a message to the client after they connect
+    socketConnection.emit(
+        'newProcessOptionsForm',
+        spaceTrim(`
+
+            ${MOCKED_SERVER_HTML_MARK}
+    
+            <form>
+                <label>
+                    Start process ID:
+                    <input type="text" name="processId"/>
+                </label>
+                <label>
+                    Start process named:
+                    <input type="text" name="processTitle"/>
+                </label>
+                <input type="submit" value="Start"/>
+            </form>
+
+            <form>
+                <input type="hidden" name="processId" value="foo"/>
+                <input type="hidden" name="processTitle" value="Foo"/>
+                <input type="submit" value="Start foo"/>
+            </form>
+
+            <form>
+                <input type="hidden" name="processId" value="bar"/>
+                <input type="hidden" name="processTitle" value="Bar"/>
+                <input type="submit" value="Start bar"/>
+            </form>
+            
+        `),
+    );
+
+    socketConnection.on('startNewProcess', (input) => {
+        console.log(chalk.green(`Starting new process with input:`), input);
+
+        socketConnection.emit('newProcess', { processId: '!!!' } satisfies Response_newProcess);
+    });
+
+    socketConnection.on('disconnect', () => {
+        console.log(chalk.magenta(`Client disconnected: ${socketConnection.id}`));
     });
 });
-// app.use(serveIndex(assetsBasePath, { icons: true }));
-app.listen(PORT);
 
-console.info(
-    chalk.bgGrey(
-        spaceTrim(`
-            🔥 Messages API samples server listening
-            🔥 Main Page:     http://localhost:${PORT}/
-            🔥 Import Assets: http://localhost:${PORT}/import
-        `),
-    ),
-);
+console.log(chalk.bgGreen(`Socket.io server listening on port ${PORT}`));

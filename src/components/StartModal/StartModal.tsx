@@ -1,5 +1,6 @@
-import { IInputData } from '@/model/interfaces/common';
 import { IServerConnector } from '@/model/interfaces/IServerConnector';
+import { IInputData } from '@/model/interfaces/common';
+import { usePromise } from '@/utils/hooks/usePromise';
 import styles from './StartModal.module.css';
 
 interface StartModalProps {
@@ -9,10 +10,12 @@ interface StartModalProps {
 export function StartModal(props: StartModalProps) {
     const { serverConnector } = props;
 
+    const { value: processOptionsForm } = usePromise(serverConnector.getNewProcessOptionsForm(), [serverConnector]);
+
     return (
         <div
             className={styles.StartModal}
-            dangerouslySetInnerHTML={{ __html: serverConnector.getNewProcessOptionsForm() }}
+            dangerouslySetInnerHTML={{ __html: processOptionsForm || '' }}
             ref={(element) => {
                 if (!element) {
                     return;
@@ -30,7 +33,7 @@ export function StartModal(props: StartModalProps) {
                         const data = Object.fromEntries(formData);
 
                         try {
-                            const processId = await serverConnector.recieveNewProcessOptions(data as IInputData);
+                            const processId = await serverConnector.startNewProcess(data as IInputData);
 
                             const url = new URL(window.location.href);
                             url.hash = '#' + processId.toString();

@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker';
 import { BehaviorSubject } from 'rxjs';
 import { forTime } from 'waitasecond';
-import { IInputData, IProcessId } from '../interfaces/common';
 import { IServerConnector } from '../interfaces/IServerConnector';
 import { IServerProcess } from '../interfaces/IServerProcess';
+import { IInputData, IProcessId } from '../interfaces/common';
 import { checkServerHtmlWithInput } from '../utils/checkServerHtmlWithInput';
 import { MockedServerProcess } from './MockedServerProcess';
 
@@ -49,7 +49,7 @@ export class MockedServerConnector implements IServerConnector {
         `);
     }
 
-    public async recieveNewProcessOptions(input: IInputData): Promise<IProcessId> {
+    public async startNewProcess(input: IInputData): Promise<IProcessId> {
         // !!! Make processTitle and processId different
         this.newProcess(new MockedServerProcess(input.processTitle));
         return input.processId;
