@@ -45,8 +45,7 @@ export class ServerConnector implements IServerConnector {
 
         this.socketClient.emit('getProcessById', { processId } satisfies Socket_Request_getProcessById);
         return new Promise((resolve) => {
-            // !!! Use once NOT on
-            this.socketClient.on('getProcessById', ({ processTitle, menuItem }: Socket_Response_getProcessById) => {
+            this.socketClient.once('getProcessById', ({ processTitle, menuItem }: Socket_Response_getProcessById) => {
                 const serverProcess = new ServerProcess(this.socketClient, processId, processTitle, menuItem);
                 this.processesConnectorsCache.set(processId, serverProcess);
                 resolve(serverProcess);
@@ -62,8 +61,7 @@ export class ServerConnector implements IServerConnector {
     public async startNewProcess(input: IInputData): Promise<IProcessId> {
         this.socketClient.emit('startNewProcess', input satisfies Socket_Request_startNewProcess);
         return new Promise((resolve, reject) => {
-            // !!! Use once NOT on
-            this.socketClient.on('newProcess', (newProcess: Socket_Response_newProcess | Socket_Error_newProcess) => {
+            this.socketClient.once('newProcess', (newProcess: Socket_Response_newProcess | Socket_Error_newProcess) => {
                 if ('processId' in newProcess) {
                     resolve(newProcess.processId);
                 } else if ('errorMessage' in newProcess) {
