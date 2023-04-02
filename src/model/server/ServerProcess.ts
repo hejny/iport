@@ -25,7 +25,7 @@ export class ServerProcess implements IServerProcess {
             this.logs.next(
                 Array.from(
                     new Set([...this.logs.value, ...logs]),
-                ) /* <- TODO: !!! Important note: Messages mus be unique (for example in order) */,
+                ) /* <- !!! Important note: Messages mus be unique (for example in order) */,
             );
         });
         this.socketClient.on('inputForm', ({ inputForm }: Socket_Event_inputForm) => {
