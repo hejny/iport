@@ -3,7 +3,7 @@ import {
     Socket_Event_newLogs,
     Socket_Request_recieveInput,
     Socket_Subscribe_LogsAndInputFrom,
-} from 'interfaces/_';
+} from 'interfaces/socket';
 import { BehaviorSubject } from 'rxjs';
 import SocketIO from 'socket.io-client';
 import { IServerProcess } from '../interfaces/IServerProcess';

@@ -9,13 +9,14 @@ import {
     Socket_Error_newProcess,
     Socket_Event_inputForm,
     Socket_Event_newLogs,
+    Socket_Event_newProcessOptionsForm,
     Socket_Event_processes,
     Socket_Request_getProcessById,
     Socket_Request_recieveInput,
     Socket_Response_getProcessById,
     Socket_Response_newProcess,
     Socket_Subscribe_LogsAndInputFrom,
-} from '../interfaces/_';
+} from '../interfaces/socket';
 import { IServerProcess } from '../src/model/interfaces/IServerProcess';
 import { IProcessId, IServerHtml, IServerHtmlWithInput } from '../src/model/interfaces/common';
 import { checkServerHtml } from '../src/model/utils/checkServerHtml';
@@ -90,7 +91,7 @@ server.on('connection', (socketConnection: Socket) => {
                 <input type="submit" value="Start bar"/>
             </form>
             
-        `),
+        `) satisfies Socket_Event_newProcessOptionsForm,
     );
 
     socketConnection.on(

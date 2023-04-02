@@ -11,6 +11,7 @@ export interface Socket_Error_newProcess {
 }
 
 export type Socket_Event_processes = Array<Pick<IServerProcess, 'processId' | 'processTitle' | 'menuItem'>>;
+export type Socket_Event_newProcessOptionsForm = IServerHtmlWithInput;
 
 export interface Socket_Request_getProcessById {
     processId: IProcessId;
@@ -21,7 +22,10 @@ export interface Socket_Response_getProcessById {
     menuItem: IServerHtml;
 }
 
-export interface Socket_Request_recieveInput { processId: IProcessId; input: unknown };
+export interface Socket_Request_recieveInput {
+    processId: IProcessId;
+    input: unknown;
+}
 
 export interface Socket_Subscribe_LogsAndInputFrom {
     processId: IProcessId;
@@ -36,8 +40,5 @@ export interface Socket_Event_inputForm {
 }
 
 /**
- * TODO: !!! Order
- * TODO: !!! Annotate
- * TODO: !!! Make every type emited from socket
- * TODO: !!! Break apart
+ * TODO: @@@ Annotate
  */

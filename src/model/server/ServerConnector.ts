@@ -5,7 +5,7 @@ import {
     Socket_Request_startNewProcess,
     Socket_Response_getProcessById,
     Socket_Response_newProcess,
-} from 'interfaces/_';
+} from 'interfaces/socket';
 import { BehaviorSubject } from 'rxjs';
 import SocketIO from 'socket.io-client';
 import { IServerConnector } from '../interfaces/IServerConnector';
