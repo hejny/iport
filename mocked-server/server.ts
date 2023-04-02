@@ -5,6 +5,7 @@ import chalk from 'chalk';
 import moment from 'moment';
 import { Socket, Server as SocketIoServer } from 'socket.io';
 import { spaceTrim } from 'spacetrim';
+import { forTime } from 'waitasecond';
 import {
     Socket_Error_newProcess,
     Socket_Event_inputForm,
@@ -24,13 +25,13 @@ import { checkServerHtmlWithInput } from '../src/model/utils/checkServerHtmlWith
 
 const PORT = 5001;
 
-const runningProcesses: Array<
-    Pick<IServerProcess, 'processId' | 'processTitle' | 'menuItem'> & {
-        logOrder: number;
-        logs: Array<IServerHtml>;
-        inputForm: IServerHtmlWithInput;
-    }
-> = [
+type IRunningProcess = Pick<IServerProcess, 'processId' | 'processTitle' | 'menuItem'> & {
+    logOrder: number;
+    logs: Array<IServerHtml>;
+    inputForm: IServerHtmlWithInput;
+};
+
+const runningProcesses: Array<IRunningProcess> = [
     {
         processId: 'a',
         processTitle: 'Process A',
@@ -210,18 +211,28 @@ server.on('connection', (socketConnection: Socket) => {
         socketConnection.emit('newLog', { logs: runningProcess.logs } satisfies Socket_Event_newLogs);
         socketConnection.emit('inputForm', { inputForm: runningProcess.inputForm } satisfies Socket_Event_inputForm);
 
-        socketConnection.join(processId);
+        socketConnection.join(processId.toString());
     });
 
-    socketConnection.on('recieveInput', ({ processId, input }: Socket_Request_recieveInput) => {
+    function emitLogs(runningProcess: IRunningProcess, ...logs: Array<IServerHtml>): void {
+        runningProcess.logs = [...runningProcess.logs, ...logs];
+        socketConnection.emit('newLog', {
+            logs,
+        } satisfies Socket_Event_newLogs);
+        socketConnection.broadcast.to(runningProcess.processId.toString()).emit('newLog', {
+            logs,
+        } satisfies Socket_Event_newLogs);
+    }
+
+    socketConnection.on('recieveInput', async ({ processId, input }: Socket_Request_recieveInput) => {
         const runningProcess = runningProcesses.find((runningProcess) => runningProcess.processId === processId);
         if (!runningProcess) {
             console.error(chalk.red(`Can not get process by ID "${processId}"`));
             // TODO: !!! Error handling if recieved input is invalid
             return;
         }
-
-        const logs = [
+        emitLogs(
+            runningProcess,
             checkServerHtml(`
                 
                 <li>
@@ -233,16 +244,44 @@ server.on('connection', (socketConnection: Socket) => {
                 </li>
             
             `),
-        ];
+        );
 
-        runningProcess.logs = [...runningProcess.logs, ...logs];
+        // Note: You can fully controll the logs:
 
-        socketConnection.emit('newLog', {
-            logs,
-        } satisfies Socket_Event_newLogs);
-        socketConnection.broadcast.to(processId).emit('newLog', {
-            logs,
-        } satisfies Socket_Event_newLogs);
+        if ((input as any).message === 'hello') {
+            emitLogs(
+                runningProcess,
+                checkServerHtml(`
+                    
+                    <li>
+                        <span class="order">${runningProcess.logOrder++}</span>
+                        <span class="time">${moment().format('HH:mm')}</span>
+                        <span class="log">
+                            - <span>Hi this is the response from the server</span>
+                        </span>
+                    </li>
+                
+                `),
+            );
+        } else if ((input as any).message === 'hack') {
+            while (true) {
+                await forTime(5000);
+                emitLogs(
+                    runningProcess,
+                    checkServerHtml(`
+                    
+                    <li>
+                        <span class="order">${runningProcess.logOrder++}</span>
+                        <span class="time">${moment().format('HH:mm')}</span>
+                        <span class="log">
+                            - <span>${faker.hacker.phrase()}</span>
+                        </span>
+                    </li>
+                
+                `),
+                );
+            }
+        }
     });
 
     socketConnection.on('disconnect', () => {
