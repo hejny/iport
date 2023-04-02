@@ -19,7 +19,7 @@ export function ProcessesList(props: ProcessesListProps) {
                     <li key={process.processId} dangerouslySetInnerHTML={{ __html: process.menuItem }} />
                 ))}
 
-                {/* TODO: This will be in data model */}
+                {/*
                 <li>
                     <a href="#a" target="a">
                         <span className="time">11:10</span>
@@ -40,6 +40,8 @@ export function ProcessesList(props: ProcessesListProps) {
                 </li>
 
                 <li>vv--- 17.01 ---------------------------</li>
+
+                */}
             </ul>
         </div>
     );

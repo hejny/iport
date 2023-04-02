@@ -1,14 +1,19 @@
-import { faker } from '@faker-js/faker';
-import { Response_newProcess } from 'interfaces/_';
+import {
+    Socket_Event_processes,
+    Socket_Request_getProcessById,
+    Socket_Request_startNewProcess,
+    Socket_Response_getProcessById,
+    Socket_Response_newProcess,
+} from 'interfaces/_';
 import { BehaviorSubject } from 'rxjs';
 import SocketIO from 'socket.io-client';
-import { forTime } from 'waitasecond';
 import { IServerConnector } from '../interfaces/IServerConnector';
-import { IServerProcess } from '../interfaces/IServerProcess';
-import { IInputData, IProcessId, IServerHtmlWithInput } from '../interfaces/common';
+import { IInputData, IProcessId, IServerHtmlWithInput, IServerProcess } from '../interfaces/common';
 import { checkServerHtmlWithInput } from '../utils/checkServerHtmlWithInput';
+import { ServerProcess } from './ServerProcess';
 
 export class ServerConnector implements IServerConnector {
+    public processes = new BehaviorSubject<Socket_Event_processes>([]);
     private socketClient: SocketIO.Socket;
 
     public constructor(public readonly apiUrl: URL) {
@@ -21,39 +26,39 @@ export class ServerConnector implements IServerConnector {
                 resolve(checkServerHtmlWithInput(newProcessOptionsForm));
             });
         });
+
+        this.socketClient.on('processes', (processes: Socket_Event_processes) => {
+            this.processes.next(processes);
+        });
     }
 
-    public getProcessById(processId: IProcessId) {}
+    public getProcessById(processId: IProcessId): Promise<IServerProcess> {
+        this.socketClient.emit('getProcessById', { processId } satisfies Socket_Request_getProcessById);
+        return new Promise((resolve) => {
+            // !!! Use once NOT on
+            this.socketClient.on('getProcessById', ({ processTitle, menuItem }: Socket_Response_getProcessById) => {
+                resolve(new ServerProcess(this.socketClient, processId, processTitle, menuItem));
+            });
+        });
+    }
 
     private newProcessOptionsForm: Promise<IServerHtmlWithInput>;
-    public async getNewProcessOptionsForm() {
+    public async getNewProcessOptionsForm(): Promise<IServerHtmlWithInput> {
         return await this.newProcessOptionsForm;
     }
 
     public async startNewProcess(input: IInputData): Promise<IProcessId> {
-        this.socketClient.emit('startNewProcess', input);
-
+        this.socketClient.emit('startNewProcess', input satisfies Socket_Request_startNewProcess);
         return new Promise((resolve) => {
-            this.socketClient.on('newProcess', ({ processId }: Response_newProcess) => {
+            // !!! Use once NOT on
+            this.socketClient.on('newProcess', ({ processId }: Socket_Response_newProcess) => {
                 resolve(processId);
             });
         });
     }
 
-    public processes = new BehaviorSubject<Array<IServerProcess>>([]);
-
     private newProcess(process: IServerProcess) {
         // TODO: Maybe recycle old array object and just push into it
         this.processes.next([...this.processes.value, process]);
-    }
-
-    public async startMockedProcesses() {
-        this.newProcess(new MockedProcess(`first`));
-
-        while (true) {
-            await forTime(1000 * (60 * Math.random()) /* <- TODO: Tweak time */);
-
-            this.newProcess(new MockedProcess(faker.hacker.verb()));
-        }
     }
 }

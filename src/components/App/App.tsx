@@ -1,6 +1,8 @@
+import { IServerProcess } from '@/model/interfaces/IServerProcess';
 import { ServerConnector } from '@/model/server/ServerConnector';
 import { classNames } from '@/utils/classNames';
 import { useProcessId } from '@/utils/hooks/useProcessId';
+import { usePromise } from '@/utils/hooks/usePromise';
 import { SERVER_URL } from 'config';
 import { useEffect, useMemo } from 'react';
 import { useToggle } from '../../utils/hooks/useToggle';
@@ -23,18 +25,25 @@ export function App(props: AppProps) {
         return new ServerConnector(SERVER_URL);
     }, []);
 
-    const serverProcess = !processId ? null : serverConnector.getProcessById(processId);
+    const { value: serverProcess } = usePromise<IServerProcess | 'NO_PROCESS'>(
+        !processId ? Promise.resolve('NO_PROCESS') : serverConnector.getProcessById(processId),
+        [processId],
+    );
 
     useEffect(() => {
         // TODO: Do outside of component probbably IN custom hook
         // TODO: changeFavicon(processStatusFaviconUrl);
 
-        if (!serverProcess) {
+        if (!serverProcess || serverProcess === 'NO_PROCESS') {
             return;
         }
 
         window.document.title = serverProcess.processTitle;
     });
+
+    if (!serverProcess) {
+        return <>Connecting</>;
+    }
 
     return (
         <main
@@ -49,7 +58,7 @@ export function App(props: AppProps) {
                 </nav>
             )}
             <main className={styles.ProcessTerminal}>
-                {!serverProcess ? (
+                {serverProcess === 'NO_PROCESS' ? (
                     <StartModal {...{ serverConnector }} />
                 ) : (
                     <ProcessTerminal {...{ serverProcess, isTerminalPinned }} />

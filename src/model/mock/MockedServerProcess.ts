@@ -2,8 +2,8 @@ import { faker } from '@faker-js/faker';
 import moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
 import { forTime } from 'waitasecond';
-import { IInputData, IProcessId, IServerHtml } from '../interfaces/common';
 import { IServerProcess } from '../interfaces/IServerProcess';
+import { IInputData, IProcessId, IServerHtml } from '../interfaces/common';
 import { checkServerHtml } from '../utils/checkServerHtml';
 import { checkServerHtmlWithInput } from '../utils/checkServerHtmlWithInput';
 
@@ -19,9 +19,9 @@ export class MockedServerProcess implements IServerProcess {
     public get menuItem() {
         return checkServerHtml(
             `
-            <a href="#${this.processId}" target="${
-                this.processId
-            }" style={{ color: '${faker.color.rgb()}', fontWeight: '${Math.random() > 0.8 ? 'bold' : 'normal'}' }}>
+            <a href="#${this.processId}" target="${this.processId}" style="color: ${faker.color.rgb()}; fontWeight: ${
+                Math.random() > 0.8 ? 'bold' : 'normal'
+            }">
                 <span class="time">${moment().format('HH:mm')}</span>` +
                 `<span class="name">${this.processTitle}</span>
             </a>

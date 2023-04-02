@@ -1,12 +1,35 @@
 #!/usr/bin/env ts-node
 
+import { faker } from '@faker-js/faker';
 import chalk from 'chalk';
+import moment from 'moment';
 import { Socket, Server as SocketIoServer } from 'socket.io';
 import { spaceTrim } from 'spacetrim';
-import { Response_newProcess } from '../interfaces/_';
+import {
+    Socket_Event_processes,
+    Socket_Request_getProcessById,
+    Socket_Response_getProcessById,
+    Socket_Response_newProcess,
+} from '../interfaces/_';
 import { IProcessId } from '../src/model/interfaces/common';
+import { checkServerHtml } from '../src/model/utils/checkServerHtml';
 
 const PORT = 5001;
+
+const runningProcesses: Socket_Event_processes = [
+    {
+        processId: 'a',
+        processTitle: 'Process A',
+        menuItem: checkServerHtml(
+            `
+                <a href="#a" target="a">
+                    <span class="time">${moment().format('HH:mm')}</span><span class="name">Process A</span>
+                </a>
+        `,
+        ),
+        
+    },
+];
 
 const server = new SocketIoServer(PORT, {
     cors: {
@@ -20,7 +43,8 @@ server.on('connection', (socketConnection: Socket) => {
 
     const MOCKED_SERVER_HTML_MARK = `<span>This is a content from server for client ${socketConnection.id}:</span>`;
 
-    // Send a message to the client after they connect
+    // Send a initial messages to the client after they connect
+    socketConnection.emit('processes', runningProcesses satisfies Socket_Event_processes);
     socketConnection.emit(
         'newProcessOptionsForm',
         spaceTrim(`
@@ -63,11 +87,44 @@ server.on('connection', (socketConnection: Socket) => {
             } /* <- Note: this type is 100% determined from shape of newProcessOptionsForm input names */,
         ) => {
             const { processId, processTitle } = input;
-            console.log(chalk.green(`Starting new process with input:`), input);
+            console.log(chalk.green(`Starting new process with ID "${processId}" with input:`), input);
 
-            socketConnection.emit('newProcess', { processId } satisfies Response_newProcess);
+            runningProcesses.push({
+                processId,
+                processTitle,
+                menuItem: checkServerHtml(
+                    `
+                        <a
+                            href="#${processId}"
+                            target="${processId}"
+                            style="color: ${faker.color.rgb()}; fontWeight: ${Math.random() > 0.8 ? 'bold' : 'normal'}"
+                        >
+                            <span class="time">${moment().format('HH:mm')}</span>
+                            <span class="name">${processTitle}</span>
+                        </a>
+                    `,
+                ),
+            });
+
+            // !!! Error handling and emmiting from here
+
+            // This respond to startNewProcess
+            socketConnection.emit('newProcess', { processId } satisfies Socket_Response_newProcess);
+
+            // This broadcast new process to all connected clients
+            server.emit('processes', runningProcesses satisfies Socket_Event_processes);
         },
     );
+
+    socketConnection.on('getProcessById', ({ processId }: Socket_Request_getProcessById) => {
+        const runningProcess = runningProcesses.find((runningProcess) => runningProcess.processId === processId);
+        if (!runningProcess) {
+            console.error(chalk.red(`Can not get process by ID "${processId}"`));
+            // !!! Error handling and emmiting from here IF NOT found
+            return;
+        }
+        socketConnection.emit('getProcessById', runningProcess satisfies Socket_Response_getProcessById);
+    });
 
     socketConnection.on('disconnect', () => {
         console.log(chalk.magenta(`Client disconnected: ${socketConnection.id}`));
