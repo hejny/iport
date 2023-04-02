@@ -1,4 +1,9 @@
-import { Socket_Event_inputForm, Socket_Event_newLogs, Socket_Subscribe_LogsAndInputFrom } from 'interfaces/_';
+import {
+    Socket_Event_inputForm,
+    Socket_Event_newLogs,
+    Socket_Request_recieveInput,
+    Socket_Subscribe_LogsAndInputFrom,
+} from 'interfaces/_';
 import { BehaviorSubject } from 'rxjs';
 import SocketIO from 'socket.io-client';
 import { IServerProcess } from '../interfaces/IServerProcess';
@@ -24,5 +29,7 @@ export class ServerProcess implements IServerProcess {
         });
     }
 
-    public async recieveInput(input: IInputData): Promise<void> {}
+    public async recieveInput(input: IInputData): Promise<void> {
+        this.socketClient.emit('recieveInput', { processId: this.processId, input } as Socket_Request_recieveInput);
+    }
 }

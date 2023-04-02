@@ -11,6 +11,7 @@ import {
     Socket_Event_newLogs,
     Socket_Event_processes,
     Socket_Request_getProcessById,
+    Socket_Request_recieveInput,
     Socket_Response_getProcessById,
     Socket_Response_newProcess,
     Socket_Subscribe_LogsAndInputFrom,
@@ -207,6 +208,32 @@ server.on('connection', (socketConnection: Socket) => {
         // !!! Broadcast
         socketConnection.emit('newLog', { logs: runningProcess.logs } satisfies Socket_Event_newLogs);
         socketConnection.emit('inputForm', { inputForm: runningProcess.inputForm } satisfies Socket_Event_inputForm);
+    });
+
+    socketConnection.on('recieveInput', ({ processId, input }: Socket_Request_recieveInput) => {
+        const runningProcess = runningProcesses.find((runningProcess) => runningProcess.processId === processId);
+        if (!runningProcess) {
+            console.error(chalk.red(`Can not get process by ID "${processId}"`));
+            // TODO: !!! Error handling if recieved input is invalid
+            return;
+        }
+
+        // !!! Broadcast
+        socketConnection.emit('newLog', {
+            logs: [
+                checkServerHtml(`
+                    
+                    <li>
+                        <span class="order">${runningProcess.logOrder++}</span>
+                        <span class="time">${moment().format('HH:mm')}</span>
+                        <span class="log">
+                            - <span style="color: ${(input as any).color}">${(input as any).message}</span>
+                        </span>
+                    </li>
+                
+                `),
+            ],
+        } satisfies Socket_Event_newLogs);
     });
 
     socketConnection.on('disconnect', () => {

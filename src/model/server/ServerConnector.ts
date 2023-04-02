@@ -63,9 +63,4 @@ export class ServerConnector implements IServerConnector {
             });
         });
     }
-
-    private newProcess(process: IServerProcess) {
-        // TODO: Maybe recycle old array object and just push into it
-        this.processes.next([...this.processes.value, process]);
-    }
 }

@@ -2,6 +2,7 @@ import { IServerProcess } from '@/model/interfaces/IServerProcess';
 import { IProcessId, IServerHtml, IServerHtmlWithInput } from '@/model/interfaces/common';
 
 export type Socket_Request_startNewProcess = unknown;
+
 export interface Socket_Response_newProcess {
     processId: IProcessId;
 }
@@ -19,6 +20,8 @@ export interface Socket_Response_getProcessById {
     processTitle: string;
     menuItem: IServerHtml;
 }
+
+export interface Socket_Request_recieveInput { processId: IProcessId; input: unknown };
 
 export interface Socket_Subscribe_LogsAndInputFrom {
     processId: IProcessId;
