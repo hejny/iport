@@ -15,6 +15,7 @@ import { ServerProcess } from './ServerProcess';
 
 export class ServerConnector implements IServerConnector {
     public processes = new BehaviorSubject<Socket_Event_processes>([]);
+
     private socketClient: SocketIO.Socket;
 
     public constructor(public readonly apiUrl: URL) {
@@ -33,12 +34,22 @@ export class ServerConnector implements IServerConnector {
         });
     }
 
+    private processesConnectorsCache = new Map<IProcessId, IServerProcess>();
+
     public getProcessById(processId: IProcessId): Promise<IServerProcess> {
+        if (this.processesConnectorsCache.has(processId)) {
+            return this.processesConnectorsCache.get(processId);
+        }
+
+        console.log('getProcessById', processId);
+
         this.socketClient.emit('getProcessById', { processId } satisfies Socket_Request_getProcessById);
         return new Promise((resolve) => {
             // !!! Use once NOT on
             this.socketClient.on('getProcessById', ({ processTitle, menuItem }: Socket_Response_getProcessById) => {
-                resolve(new ServerProcess(this.socketClient, processId, processTitle, menuItem));
+                const serverProcess = new ServerProcess(this.socketClient, processId, processTitle, menuItem);
+                this.processesConnectorsCache.set(processId, serverProcess);
+                resolve(serverProcess);
             });
         });
     }

@@ -135,7 +135,7 @@ server.on('connection', (socketConnection: Socket) => {
                         </a>
                     `,
                 ),
-                logOrder: 0,
+                logOrder: 1,
                 logs: [
                     checkServerHtml(`
                         
@@ -205,9 +205,11 @@ server.on('connection', (socketConnection: Socket) => {
             return;
         }
 
-        // !!! Broadcast
+        console.log(`subscribeToLogsAndInputFrom ${processId} from ${socketConnection.id}`);
         socketConnection.emit('newLog', { logs: runningProcess.logs } satisfies Socket_Event_newLogs);
         socketConnection.emit('inputForm', { inputForm: runningProcess.inputForm } satisfies Socket_Event_inputForm);
+
+        socketConnection.join(processId);
     });
 
     socketConnection.on('recieveInput', ({ processId, input }: Socket_Request_recieveInput) => {
@@ -218,21 +220,27 @@ server.on('connection', (socketConnection: Socket) => {
             return;
         }
 
-        // !!! Broadcast
-        socketConnection.emit('newLog', {
-            logs: [
-                checkServerHtml(`
-                    
-                    <li>
-                        <span class="order">${runningProcess.logOrder++}</span>
-                        <span class="time">${moment().format('HH:mm')}</span>
-                        <span class="log">
-                            - <span style="color: ${(input as any).color}">${(input as any).message}</span>
-                        </span>
-                    </li>
+        const logs = [
+            checkServerHtml(`
                 
-                `),
-            ],
+                <li>
+                    <span class="order">${runningProcess.logOrder++}</span>
+                    <span class="time">${moment().format('HH:mm')}</span>
+                    <span class="log">
+                        - <span style="color: ${(input as any).color}">${(input as any).message}</span>
+                    </span>
+                </li>
+            
+            `),
+        ];
+
+        runningProcess.logs = [...runningProcess.logs, ...logs];
+
+        socketConnection.emit('newLog', {
+            logs,
+        } satisfies Socket_Event_newLogs);
+        socketConnection.broadcast.to(processId).emit('newLog', {
+            logs,
         } satisfies Socket_Event_newLogs);
     });
 

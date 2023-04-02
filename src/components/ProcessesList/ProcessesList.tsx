@@ -16,7 +16,7 @@ export function ProcessesList(props: ProcessesListProps) {
             <h2>Seznam procesů: </h2>
             <ul>
                 <li>
-                    <a href="" target="NO_PROCESS">
+                    <a href="" target="_blank">
                         <span className="name">New process</span>
                     </a>
                 </li>

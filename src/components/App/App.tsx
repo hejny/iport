@@ -26,7 +26,7 @@ export function App(props: AppProps) {
     }, []);
 
     const { value: serverProcess } = usePromise<IServerProcess | 'NO_PROCESS'>(
-        !processId ? Promise.resolve('NO_PROCESS') : serverConnector.getProcessById(processId),
+        processId === null ? Promise.resolve('NO_PROCESS') : serverConnector.getProcessById(processId),
         [processId],
     );
 
