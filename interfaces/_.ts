@@ -5,6 +5,9 @@ export type Socket_Request_startNewProcess = unknown;
 export interface Socket_Response_newProcess {
     processId: IProcessId;
 }
+export interface Socket_Error_newProcess {
+    errorMessage: string;
+}
 
 export type Socket_Event_processes = Array<Pick<IServerProcess, 'processId' | 'processTitle' | 'menuItem'>>;
 

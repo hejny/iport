@@ -6,6 +6,7 @@ import moment from 'moment';
 import { Socket, Server as SocketIoServer } from 'socket.io';
 import { spaceTrim } from 'spacetrim';
 import {
+    Socket_Error_newProcess,
     Socket_Event_newLogs,
     Socket_Event_processes,
     Socket_Request_getProcessById,
@@ -98,6 +99,15 @@ server.on('connection', (socketConnection: Socket) => {
             const { processId, processTitle } = input;
             console.log(chalk.green(`Starting new process with ID "${processId}" with input:`), input);
 
+            const runningProcess = runningProcesses.find((runningProcess) => runningProcess.processId === processId);
+
+            if (runningProcess) {
+                const errorMessage = `Can not start new process with ID "${processId}" because it is already running`;
+                console.error(chalk.red(errorMessage));
+                socketConnection.emit('newProcess', { errorMessage } satisfies Socket_Error_newProcess);
+                return;
+            }
+
             runningProcesses.push({
                 processId,
                 processTitle,
@@ -129,8 +139,6 @@ server.on('connection', (socketConnection: Socket) => {
                 ],
             });
 
-            // !!! Error handling and emmiting from here
-
             // This respond to startNewProcess
             socketConnection.emit('newProcess', { processId } satisfies Socket_Response_newProcess);
 
@@ -146,7 +154,7 @@ server.on('connection', (socketConnection: Socket) => {
         const runningProcess = runningProcesses.find((runningProcess) => runningProcess.processId === processId);
         if (!runningProcess) {
             console.error(chalk.red(`Can not get process by ID "${processId}"`));
-            // !!! Error handling and emmiting from here IF NOT found
+            // TODO: !!! Error handling and emmiting from here IF NOT found
             return;
         }
         socketConnection.emit('getProcessById', runningProcess satisfies Socket_Response_getProcessById);
@@ -156,7 +164,7 @@ server.on('connection', (socketConnection: Socket) => {
         const runningProcess = runningProcesses.find((runningProcess) => runningProcess.processId === processId);
         if (!runningProcess) {
             console.error(chalk.red(`Can not get process by ID "${processId}"`));
-            // !!! Error handling and emmiting from here IF NOT found
+            // TODO: !!! Error handling and emmiting from here IF NOT found
             return;
         }
 

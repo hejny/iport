@@ -1,4 +1,5 @@
 import {
+    Socket_Error_newProcess,
     Socket_Event_processes,
     Socket_Request_getProcessById,
     Socket_Request_startNewProcess,
@@ -49,10 +50,16 @@ export class ServerConnector implements IServerConnector {
 
     public async startNewProcess(input: IInputData): Promise<IProcessId> {
         this.socketClient.emit('startNewProcess', input satisfies Socket_Request_startNewProcess);
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             // !!! Use once NOT on
-            this.socketClient.on('newProcess', ({ processId }: Socket_Response_newProcess) => {
-                resolve(processId);
+            this.socketClient.on('newProcess', (newProcess: Socket_Response_newProcess | Socket_Error_newProcess) => {
+                if ('processId' in newProcess) {
+                    resolve(newProcess.processId);
+                } else if ('errorMessage' in newProcess) {
+                    reject(new Error(newProcess.errorMessage));
+                } else {
+                    reject(new Error(`Unknown error`));
+                }
             });
         });
     }
