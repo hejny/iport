@@ -6,17 +6,25 @@ import moment from 'moment';
 import { Socket, Server as SocketIoServer } from 'socket.io';
 import { spaceTrim } from 'spacetrim';
 import {
+    Socket_Event_newLog,
     Socket_Event_processes,
     Socket_Request_getProcessById,
     Socket_Response_getProcessById,
     Socket_Response_newProcess,
+    Socket_Subscribe_LogsAndInputFrom,
 } from '../interfaces/_';
-import { IProcessId } from '../src/model/interfaces/common';
+import { IServerProcess } from '../src/model/interfaces/IServerProcess';
+import { IProcessId, IServerHtml } from '../src/model/interfaces/common';
 import { checkServerHtml } from '../src/model/utils/checkServerHtml';
 
 const PORT = 5001;
 
-const runningProcesses: Socket_Event_processes = [
+const runningProcesses: Array<
+    Pick<IServerProcess, 'processId' | 'processTitle' | 'menuItem'> & {
+        logOrder: number;
+        logs: Array<IServerHtml>;
+    }
+> = [
     {
         processId: 'a',
         processTitle: 'Process A',
@@ -27,7 +35,8 @@ const runningProcesses: Socket_Event_processes = [
                 </a>
         `,
         ),
-        
+        logOrder: 0,
+        logs: [],
     },
 ];
 
@@ -104,6 +113,20 @@ server.on('connection', (socketConnection: Socket) => {
                         </a>
                     `,
                 ),
+                logOrder: 0,
+                logs: [
+                    checkServerHtml(`
+                        
+                        <li>
+                            <span class="order">0</span>
+                            <span class="time">${moment().format('HH:mm')}</span>
+                            <span class="log">
+                                - <span style="color: #ccc">First message of ${processTitle}</span>
+                            </span>
+                        </li>
+                    
+                    `),
+                ],
             });
 
             // !!! Error handling and emmiting from here
@@ -112,7 +135,10 @@ server.on('connection', (socketConnection: Socket) => {
             socketConnection.emit('newProcess', { processId } satisfies Socket_Response_newProcess);
 
             // This broadcast new process to all connected clients
-            server.emit('processes', runningProcesses satisfies Socket_Event_processes);
+            server.emit(
+                'processes',
+                runningProcesses /* <- TODO: Sending bit more then needed */ satisfies Socket_Event_processes,
+            );
         },
     );
 
@@ -124,6 +150,16 @@ server.on('connection', (socketConnection: Socket) => {
             return;
         }
         socketConnection.emit('getProcessById', runningProcess satisfies Socket_Response_getProcessById);
+    });
+
+    socketConnection.on('subscribeToLogsAndInputFrom', ({ processId }: Socket_Subscribe_LogsAndInputFrom) => {
+        const runningProcess = runningProcesses.find((runningProcess) => runningProcess.processId === processId);
+        if (!runningProcess) {
+            console.error(chalk.red(`Can not get process by ID "${processId}"`));
+            // !!! Error handling and emmiting from here IF NOT found
+            return;
+        }
+        socketConnection.emit('newLog', { log: checkServerHtml(`aaa${Math.random()}`) } satisfies Socket_Event_newLog);
     });
 
     socketConnection.on('disconnect', () => {
