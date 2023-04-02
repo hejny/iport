@@ -8,18 +8,19 @@ import { IInputData, IProcessId, IServerHtmlWithInput } from './common';
  */
 export interface IServerConnector {
     /**
-     * Available running processes
+     * Available information about running processes
      * Every update(next) of the observable will fully update the process list.
+     *
+     * Note: This does not contain full information about the process, only the info for menu, to get full info use getProcessById
      */
-    processes: Observable<Array<IServerProcess>>;
-
+    processes: Observable<Array<Pick<IServerProcess, 'processId' | 'processTitle' | 'menuItem'>>>;
     /**
      * Get any process by its ID
      *
      * @param processId - ID of the process to get
      * @returns Process object with the specified ID
      */
-    getProcessById(processId: IProcessId): IServerProcess;
+    getProcessById(processId: IProcessId): Promisable<IServerProcess>;
 
     /**
      * Object containing HTML from the server with input data for creating a new process.
