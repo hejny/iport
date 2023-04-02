@@ -4,6 +4,7 @@ import chalk from 'chalk';
 import { Socket, Server as SocketIoServer } from 'socket.io';
 import { spaceTrim } from 'spacetrim';
 import { Response_newProcess } from '../interfaces/_';
+import { IProcessId } from '../src/model/interfaces/common';
 
 const PORT = 5001;
 
@@ -53,11 +54,20 @@ server.on('connection', (socketConnection: Socket) => {
         `),
     );
 
-    socketConnection.on('startNewProcess', (input) => {
-        console.log(chalk.green(`Starting new process with input:`), input);
+    socketConnection.on(
+        'startNewProcess',
+        (
+            input: {
+                processId: IProcessId;
+                processTitle: string;
+            } /* <- Note: this type is 100% determined from shape of newProcessOptionsForm input names */,
+        ) => {
+            const { processId, processTitle } = input;
+            console.log(chalk.green(`Starting new process with input:`), input);
 
-        socketConnection.emit('newProcess', { processId: '!!!' } satisfies Response_newProcess);
-    });
+            socketConnection.emit('newProcess', { processId } satisfies Response_newProcess);
+        },
+    );
 
     socketConnection.on('disconnect', () => {
         console.log(chalk.magenta(`Client disconnected: ${socketConnection.id}`));
