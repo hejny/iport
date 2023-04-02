@@ -1,5 +1,5 @@
 import { IServerProcess } from '@/model/interfaces/IServerProcess';
-import { IProcessId, IServerHtml } from '@/model/interfaces/common';
+import { IProcessId, IServerHtml, IServerHtmlWithInput } from '@/model/interfaces/common';
 
 export type Socket_Request_startNewProcess = unknown;
 export interface Socket_Response_newProcess {
@@ -26,6 +26,10 @@ export interface Socket_Subscribe_LogsAndInputFrom {
 
 export interface Socket_Event_newLogs {
     logs: Array<IServerHtml>;
+}
+
+export interface Socket_Event_inputForm {
+    inputForm: IServerHtmlWithInput;
 }
 
 /**

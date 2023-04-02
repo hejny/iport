@@ -1,4 +1,4 @@
-import { Socket_Event_newLogs, Socket_Subscribe_LogsAndInputFrom } from 'interfaces/_';
+import { Socket_Event_inputForm, Socket_Event_newLogs, Socket_Subscribe_LogsAndInputFrom } from 'interfaces/_';
 import { BehaviorSubject } from 'rxjs';
 import SocketIO from 'socket.io-client';
 import { IServerProcess } from '../interfaces/IServerProcess';
@@ -19,8 +19,9 @@ export class ServerProcess implements IServerProcess {
         this.socketClient.on('newLog', ({ logs }: Socket_Event_newLogs) => {
             this.logs.next([...this.logs.value, ...logs]);
         });
-
-        // !!! Same with inputForm
+        this.socketClient.on('inputForm', ({ inputForm }: Socket_Event_inputForm) => {
+            this.inputForm.next(inputForm);
+        });
     }
 
     public async recieveInput(input: IInputData): Promise<void> {}

@@ -7,6 +7,7 @@ import { Socket, Server as SocketIoServer } from 'socket.io';
 import { spaceTrim } from 'spacetrim';
 import {
     Socket_Error_newProcess,
+    Socket_Event_inputForm,
     Socket_Event_newLogs,
     Socket_Event_processes,
     Socket_Request_getProcessById,
@@ -15,8 +16,9 @@ import {
     Socket_Subscribe_LogsAndInputFrom,
 } from '../interfaces/_';
 import { IServerProcess } from '../src/model/interfaces/IServerProcess';
-import { IProcessId, IServerHtml } from '../src/model/interfaces/common';
+import { IProcessId, IServerHtml, IServerHtmlWithInput } from '../src/model/interfaces/common';
 import { checkServerHtml } from '../src/model/utils/checkServerHtml';
+import { checkServerHtmlWithInput } from '../src/model/utils/checkServerHtmlWithInput';
 
 const PORT = 5001;
 
@@ -24,6 +26,7 @@ const runningProcesses: Array<
     Pick<IServerProcess, 'processId' | 'processTitle' | 'menuItem'> & {
         logOrder: number;
         logs: Array<IServerHtml>;
+        inputForm: IServerHtmlWithInput;
     }
 > = [
     {
@@ -38,6 +41,7 @@ const runningProcesses: Array<
         ),
         logOrder: 0,
         logs: [],
+        inputForm: checkServerHtmlWithInput(``),
     },
 ];
 
@@ -99,6 +103,13 @@ server.on('connection', (socketConnection: Socket) => {
             const { processId, processTitle } = input;
             console.log(chalk.green(`Starting new process with ID "${processId}" with input:`), input);
 
+            if (processId.toString().trim() === '' || processTitle.toString().trim() === '') {
+                const errorMessage = `Can not start new process because you need to set title and ID`;
+                console.error(chalk.red(errorMessage));
+                socketConnection.emit('newProcess', { errorMessage } satisfies Socket_Error_newProcess);
+                return;
+            }
+
             const runningProcess = runningProcesses.find((runningProcess) => runningProcess.processId === processId);
 
             if (runningProcess) {
@@ -137,6 +148,31 @@ server.on('connection', (socketConnection: Socket) => {
                     
                     `),
                 ],
+                inputForm: checkServerHtmlWithInput(`
+                        <form>
+                            <label>
+                                Send something to server:
+                                <input type="text" name="message"/>
+                            </label>
+
+                            <label>
+                                Choose a style:
+                                <select id="color" name="color">
+                                    <option value="inherit">Default</option>
+                                    <option value="red">Red</option>
+                                    <option value="green">Green</option>
+                                    <option value="blue">Blue</option>
+                                    <option value="yellow">Yellow</option>
+                                    <option value="orange">Orange</option>
+                                    <option value="purple">Purple</option>
+                                </select>
+                            </label>
+
+                            <input type="submit" value="send"/>
+                            
+                        </form>
+                
+                `),
             });
 
             // This respond to startNewProcess
@@ -168,7 +204,9 @@ server.on('connection', (socketConnection: Socket) => {
             return;
         }
 
+        // !!! Broadcast
         socketConnection.emit('newLog', { logs: runningProcess.logs } satisfies Socket_Event_newLogs);
+        socketConnection.emit('inputForm', { inputForm: runningProcess.inputForm } satisfies Socket_Event_inputForm);
     });
 
     socketConnection.on('disconnect', () => {
