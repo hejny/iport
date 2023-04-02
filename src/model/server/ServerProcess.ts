@@ -1,4 +1,4 @@
-import { Socket_Event_newLog, Socket_Subscribe_LogsAndInputFrom } from 'interfaces/_';
+import { Socket_Event_newLogs, Socket_Subscribe_LogsAndInputFrom } from 'interfaces/_';
 import { BehaviorSubject } from 'rxjs';
 import SocketIO from 'socket.io-client';
 import { IServerProcess } from '../interfaces/IServerProcess';
@@ -16,8 +16,8 @@ export class ServerProcess implements IServerProcess {
         public readonly menuItem: IServerHtml,
     ) {
         this.socketClient.emit('subscribeToLogsAndInputFrom', { processId } as Socket_Subscribe_LogsAndInputFrom);
-        this.socketClient.on('newLog', ({ log }: Socket_Event_newLog) => {
-            this.logs.next([...this.logs.value, log]);
+        this.socketClient.on('newLog', ({ logs }: Socket_Event_newLogs) => {
+            this.logs.next([...this.logs.value, ...logs]);
         });
 
         // !!! Same with inputForm

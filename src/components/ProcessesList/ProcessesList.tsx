@@ -15,6 +15,12 @@ export function ProcessesList(props: ProcessesListProps) {
         <div className={styles.ProcessesList}>
             <h2>Seznam procesů: </h2>
             <ul>
+                <li>
+                    <a href="" target="NO_PROCESS">
+                        <span className="name">New process</span>
+                    </a>
+                </li>
+
                 {(processes || []).map((process) => (
                     <li key={process.processId} dangerouslySetInnerHTML={{ __html: process.menuItem }} />
                 ))}

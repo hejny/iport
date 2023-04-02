@@ -21,8 +21,8 @@ export interface Socket_Subscribe_LogsAndInputFrom {
     processId: IProcessId;
 }
 
-export interface Socket_Event_newLog {
-    log: IServerHtml;
+export interface Socket_Event_newLogs {
+    logs: Array<IServerHtml>;
 }
 
 /**

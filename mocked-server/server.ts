@@ -6,7 +6,7 @@ import moment from 'moment';
 import { Socket, Server as SocketIoServer } from 'socket.io';
 import { spaceTrim } from 'spacetrim';
 import {
-    Socket_Event_newLog,
+    Socket_Event_newLogs,
     Socket_Event_processes,
     Socket_Request_getProcessById,
     Socket_Response_getProcessById,
@@ -159,7 +159,8 @@ server.on('connection', (socketConnection: Socket) => {
             // !!! Error handling and emmiting from here IF NOT found
             return;
         }
-        socketConnection.emit('newLog', { log: checkServerHtml(`aaa${Math.random()}`) } satisfies Socket_Event_newLog);
+
+        socketConnection.emit('newLog', { logs: runningProcess.logs } satisfies Socket_Event_newLogs);
     });
 
     socketConnection.on('disconnect', () => {
