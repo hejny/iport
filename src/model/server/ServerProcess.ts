@@ -2,12 +2,12 @@ import {
     Socket_Event_inputForm,
     Socket_Event_newLogs,
     Socket_Request_recieveInput,
-    Socket_Subscribe_LogsAndInputFrom,
+    Socket_Subscribe_LogsAndInputFrom
 } from 'interfaces/socket';
 import { BehaviorSubject } from 'rxjs';
 import SocketIO from 'socket.io-client';
-import { IServerProcess } from '../interfaces/IServerProcess';
 import { IInputData, IProcessId, IServerHtml, IServerHtmlWithInput } from '../interfaces/common';
+import { IServerProcess } from '../interfaces/IServerProcess';
 import { checkServerHtmlWithInput } from '../utils/checkServerHtmlWithInput';
 
 export class ServerProcess implements IServerProcess {

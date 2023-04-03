@@ -1,5 +1,5 @@
-import { IServerProcess } from '@/model/interfaces/IServerProcess';
 import { IProcessId, IServerHtml, IServerHtmlWithInput } from '@/model/interfaces/common';
+import { IServerProcess } from '@/model/interfaces/IServerProcess';
 
 /**
  * Type for Socket_Request_startNewProcess ⁘

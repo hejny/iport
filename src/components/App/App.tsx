@@ -7,8 +7,8 @@ import { SERVER_URL } from 'config';
 import { useEffect, useMemo } from 'react';
 import { useToggle } from '../../utils/hooks/useToggle';
 import { BottomToolbar } from '../BottomToolbar/BottomToolbar';
-import { ProcessTerminal } from '../ProcessTerminal/ProcessTerminal';
 import { ProcessesList } from '../ProcessesList/ProcessesList';
+import { ProcessTerminal } from '../ProcessTerminal/ProcessTerminal';
 import { StartModal } from '../StartModal/StartModal';
 import styles from './App.module.css';
 

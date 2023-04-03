@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { Promisable } from 'type-fest';
-import { IServerProcess } from './IServerProcess';
 import { IInputData, IProcessId, IServerHtmlWithInput } from './common';
+import { IServerProcess } from './IServerProcess';
 
 /**
  * Object that represents connection to server which controlls the app

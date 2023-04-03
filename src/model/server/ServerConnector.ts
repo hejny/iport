@@ -1,15 +1,12 @@
 import {
     Socket_Error_newProcess,
-    Socket_Event_processes,
-    Socket_Request_getProcessById,
-    Socket_Request_startNewProcess,
-    Socket_Response_getProcessById,
-    Socket_Response_newProcess,
+    Socket_Event_processes, Socket_Response_getProcessById,
+    Socket_Response_newProcess
 } from 'interfaces/socket';
 import { BehaviorSubject } from 'rxjs';
 import SocketIO from 'socket.io-client';
-import { IServerConnector } from '../interfaces/IServerConnector';
 import { IInputData, IProcessId, IServerHtmlWithInput, IServerProcess } from '../interfaces/common';
+import { IServerConnector } from '../interfaces/IServerConnector';
 import { checkServerHtmlWithInput } from '../utils/checkServerHtmlWithInput';
 import { ServerProcess } from './ServerProcess';
 

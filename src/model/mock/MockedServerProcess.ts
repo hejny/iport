@@ -2,8 +2,8 @@ import { faker } from '@faker-js/faker';
 import moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
 import { forTime } from 'waitasecond';
-import { IServerProcess } from '../interfaces/IServerProcess';
 import { IInputData, IProcessId, IServerHtml } from '../interfaces/common';
+import { IServerProcess } from '../interfaces/IServerProcess';
 import { checkServerHtml } from '../utils/checkServerHtml';
 import { checkServerHtmlWithInput } from '../utils/checkServerHtmlWithInput';
 
