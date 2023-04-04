@@ -1,6 +1,8 @@
 import {
     Socket_Error_newProcess,
     Socket_Event_processes,
+    Socket_Request_getProcessById,
+    Socket_Request_startNewProcess,
     Socket_Response_getProcessById,
     Socket_Response_newProcess,
 } from 'interfaces/socket';

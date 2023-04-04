@@ -7,14 +7,14 @@
             "focus": true
         },
         {
-            "name": "🔼 Build",
-            "command": "npm run build",
-            "focus": true
-        },
-        {
             "name": "🌎🧪 Run mocked server",
             "cwd": "./mocked-server",
             "command": "npx ts-node-dev server.ts",
+            "focus": true
+        },
+        {
+            "name": "🔼 Build",
+            "command": "npm run build",
             "focus": true
         },
         {
