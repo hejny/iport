@@ -1,42 +1,46 @@
 import { IServerProcess } from '@/model/interfaces/IServerProcess';
-import { IProcessId, IServerHtml, IServerHtmlWithInput } from '@/model/interfaces/common';
+import { IInputData, IProcessId, IServerHtml, IServerHtmlWithInput } from '@/model/interfaces/common';
 
 /**
- * Type for Socket_Request_startNewProcess ⁘
+ * Event which will be initially send to every connected client which will define shape of the new process form
  */
-export type Socket_Request_startNewProcess = unknown;
+export type Socket_Event_newProcessOptionsForm = IServerHtmlWithInput;
 
 /**
- * Interface for Socket_Response_newProcess ⁘
+ * Request to start a new process, the shape of data is defined by shape of the <form> elements in Socket_Event_newProcessOptionsForm
+ */
+export type Socket_Request_startNewProcess = IInputData;
+
+/**
+ * Information about the newly created process
  */
 export interface Socket_Response_newProcess {
     processId: IProcessId;
 }
 /**
- * Interface for Socket_Error_newProcess ⁘
+ * Information about error in creating new process
  */
 export interface Socket_Error_newProcess {
     errorMessage: string;
 }
 
 /**
- * Type for Socket_Event_processes ⁘
+ * List of all running processes
+ *
+ * Note: This is send from server everytime processes changes
+ * Note: This is also send initially
  */
 export type Socket_Event_processes = Array<Pick<IServerProcess, 'processId' | 'processTitle' | 'menuItem'>>;
-/**
- * Type for Socket_Event_newProcessOptionsForm ⁘
- */
-export type Socket_Event_newProcessOptionsForm = IServerHtmlWithInput;
 
 /**
- * Interface for Socket_Request_getProcessById ⁘
+ * Get more detailed info about the process
  */
 export interface Socket_Request_getProcessById {
     processId: IProcessId;
 }
 
 /**
- * Interface for Socket_Response_getProcessById ⁘
+ * Get more detailed info about the process
  */
 export interface Socket_Response_getProcessById {
     processTitle: string;
@@ -44,35 +48,39 @@ export interface Socket_Response_getProcessById {
 }
 
 /**
- * Interface for Socket_Request_recieveInput ⁘
+ * Send new terminal input to server
+ * Note: input shape is defined by shape of the <form> elements in Socket_Event_inputForm
  */
 export interface Socket_Request_recieveInput {
     processId: IProcessId;
-    input: unknown;
+    input: IInputData;
 }
 
 /**
- * Interface for Socket_Subscribe_LogsAndInputFrom ⁘
+ * Subscribe for new logs and changes in input form
+ * - `logs` will be send in parst, new logs are added to old ones
+ * - `inputForm` will update whole existing form
  */
 export interface Socket_Subscribe_LogsAndInputFrom {
     processId: IProcessId;
 }
 
 /**
- * Interface for Socket_Event_newLogs ⁘
+ * Server is sending new logs
  */
 export interface Socket_Event_newLogs {
     logs: Array<IServerHtml>;
 }
 
 /**
- * Interface for Socket_Event_inputForm ⁘
+ * Server is updating a form
+ *
+ * Note: if you want to hide a form, send empty string
  */
 export interface Socket_Event_inputForm {
     inputForm: IServerHtmlWithInput;
 }
 
 /**
- * TODO: @@@ Annotate
- * Note: I Have not used Socket.IO Acknowledgements @@@
+ * Note: I Have not used Socket.IO Acknowledgements BUT flat structure because of type of this app (I can explain)
  */
