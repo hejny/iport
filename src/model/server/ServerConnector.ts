@@ -9,7 +9,8 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import SocketIO from 'socket.io-client';
 import { IServerConnector } from '../interfaces/IServerConnector';
-import { IInputData, IProcessId, IServerHtmlWithInput, IServerProcess } from '../interfaces/common';
+import { IServerProcess } from '../interfaces/IServerProcess';
+import { IInputData, IProcessId, IServerHtmlWithInput } from '../interfaces/common';
 import { checkServerHtmlWithInput } from '../utils/checkServerHtmlWithInput';
 import { ServerProcess } from './ServerProcess';
 
@@ -36,9 +37,9 @@ export class ServerConnector implements IServerConnector {
 
     private processesConnectorsCache = new Map<IProcessId, IServerProcess>();
 
-    public getProcessById(processId: IProcessId): Promise<IServerProcess> {
+    public async getProcessById(processId: IProcessId): Promise<IServerProcess> {
         if (this.processesConnectorsCache.has(processId)) {
-            return this.processesConnectorsCache.get(processId);
+            return await this.processesConnectorsCache.get(processId)!;
         }
 
         console.log('getProcessById', processId);

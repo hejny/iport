@@ -7,9 +7,8 @@
             "focus": true
         },
         {
-            "name": "🌎 Expose",
-            "command": "npx lt --port 5000 --subdomain wizard",
-            "onlySingle": true,
+            "name": "🔼 Build",
+            "command": "npm run build",
             "focus": true
         },
         {
@@ -32,36 +31,6 @@
         {
             "name": "🧪 Unit tests",
             "command": "npm run test-unit",
-            "onlySingle": true,
-            "focus": true
-        },
-        {
-            "name": "🧪 Integration tests",
-            "command": "npm run test-integration",
-            "onlySingle": true,
-            "focus": true
-        },
-        {
-            "name": "🧪🔥 Integration tests (interactive)",
-            "command": "npm run test-integration-interactive",
-            "onlySingle": true,
-            "focus": true
-        },
-        {
-            "name": "🔼👑 Release major version",
-            "command": "npm version major",
-            "onlySingle": true,
-            "focus": true
-        },
-        {
-            "name": "🔼🚀 Release minor version",
-            "command": "npm version minor",
-            "onlySingle": true,
-            "focus": true
-        },
-        {
-            "name": "🔼🩹 Release patch version",
-            "command": "npm version patch",
             "onlySingle": true,
             "focus": true
         }
