@@ -1,5 +1,5 @@
-import { IServerConnector } from '@/model/interfaces/IServerConnector';
 import { IInputData } from '@/model/interfaces/common';
+import { IServerConnector } from '@/model/interfaces/IServerConnector';
 import { usePromise } from '@/utils/hooks/usePromise';
 import styles from './StartModal.module.css';
 
