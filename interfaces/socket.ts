@@ -1,5 +1,5 @@
-import { IServerProcess } from '@/model/interfaces/IServerProcess';
 import { IInputData, IProcessId, IServerHtml, IServerHtmlWithInput } from '@/model/interfaces/common';
+import { IServerProcess } from '@/model/interfaces/IServerProcess';
 
 /**
  * Event which will be initially send to every connected client which will define shape of the new process form
